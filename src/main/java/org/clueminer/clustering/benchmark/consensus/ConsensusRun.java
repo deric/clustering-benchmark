@@ -113,7 +113,7 @@ public class ConsensusRun implements Runnable {
                     } else {
                         score = eval.score(c);
                     }
-                    System.out.println("score: " + score + ", clusters: " + c.size());
+                    System.out.println(eval.getName() + ": " + score + ", clusters: " + c.size());
                     table.put("run " + i, eval.getName(), score);
                 }
             }
