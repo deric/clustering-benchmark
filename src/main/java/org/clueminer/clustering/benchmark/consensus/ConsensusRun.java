@@ -37,6 +37,7 @@ import org.clueminer.clustering.api.ClusteringAlgorithm;
 import org.clueminer.clustering.api.ClusteringFactory;
 import org.clueminer.clustering.api.Executor;
 import org.clueminer.clustering.api.factory.EvaluationFactory;
+import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.safeName;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
@@ -94,6 +95,7 @@ public class ConsensusRun implements Runnable {
             createTable();
             name = safeName(dataset.getName());
             folder = benchmarkFolder + File.separatorChar + name;
+            ensureFolder(folder);
 
             String csvRes = folder + File.separatorChar + "_" + name + ".csv";
             logger.log(Level.INFO, "dataset: {0} size: {1} num attr: {2}", new Object[]{name, dataset.size(), dataset.attributeCount()});
@@ -103,9 +105,15 @@ public class ConsensusRun implements Runnable {
             props.putInt("k", dataset.getClasses().size());
             double score;
             for (int i = 0; i < params.repeat; i++) {
+                System.out.println("run " + i);
                 c = exec.clusterRows(dataset, props);
                 for (ClusterEvaluation eval : evals) {
-                    score = c.getEvaluationTable().getScore(eval);
+                    if (c.getEvaluationTable() != null) {
+                        score = c.getEvaluationTable().getScore(eval);
+                    } else {
+                        score = eval.score(c);
+                    }
+                    System.out.println("score: " + score + ", clusters: " + c.size());
                     table.put("run " + i, eval.getName(), score);
                 }
             }

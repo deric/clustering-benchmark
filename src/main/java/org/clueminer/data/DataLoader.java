@@ -198,4 +198,29 @@ public class DataLoader implements DataProvider {
         return new DataLoader(datasets, path, paths);
     }
 
+    @Override
+    public Iterator<Dataset<? extends Instance>> iterator() {
+        return new DataLoaderIterator();
+    }
+
+    private class DataLoaderIterator implements Iterator<Dataset<? extends Instance>> {
+
+        private final Iterator<String> it;
+
+        public DataLoaderIterator() {
+            it = datasets.keySet().iterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return it.hasNext();
+        }
+
+        @Override
+        public Dataset<? extends Instance> next() {
+            return getDataset(it.next());
+        }
+
+    }
+
 }

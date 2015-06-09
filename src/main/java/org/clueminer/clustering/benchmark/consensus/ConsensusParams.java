@@ -29,6 +29,6 @@ public class ConsensusParams extends AbsParams {
     public String dataset = null;
 
     @Parameter(names = "--method", description = "clustering algorithm name")
-    public String method = null;
+    public String method = "k-means (MacQueen)";
 
 }

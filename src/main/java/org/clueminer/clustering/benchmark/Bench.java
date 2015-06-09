@@ -10,6 +10,8 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import org.clueminer.data.DataLoader;
+import org.clueminer.dataset.api.DataProvider;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.dataset.benchmark.DatasetFixture;
@@ -23,6 +25,7 @@ public abstract class Bench {
 
     protected static String benchmarkFolder;
     protected HashMap<String, Map.Entry<Dataset<? extends Instance>, Integer>> availableDatasets = new HashMap<>();
+    protected DataProvider provider;
 
     public Bench() {
         //constructor without arguments
@@ -59,6 +62,14 @@ public abstract class Bench {
             Dataset<? extends Instance> d = entry.getKey();
             availableDatasets.put(d.getName(), entry);
         }
+    }
+
+    protected void loadBenchArtificial() {
+        provider = DataLoader.createLoader("datasets", "artificial");
+    }
+
+    protected void loadBenchRealWorld() {
+        provider = DataLoader.createLoader("datasets", "real-world");
     }
 
     /**

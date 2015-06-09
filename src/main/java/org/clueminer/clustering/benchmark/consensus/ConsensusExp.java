@@ -17,14 +17,11 @@
 package org.clueminer.clustering.benchmark.consensus;
 
 import com.beust.jcommander.JCommander;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.clueminer.clustering.benchmark.Bench;
 import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.printUsage;
-import org.clueminer.dataset.api.Dataset;
-import org.clueminer.dataset.api.Instance;
 
 /**
  *
@@ -44,24 +41,17 @@ public class ConsensusExp extends Bench {
     @Override
     public void main(String[] args) {
         ConsensusParams params = parseArguments(args);
-        if (params.dataset != null) {
-            load(params.dataset);
-        } else {
-            loadDatasets();
-        }
         setupLogging(params);
 
-        int i = 0;
-        for (Map.Entry<String, Map.Entry<Dataset<? extends Instance>, Integer>> e : availableDatasets.entrySet()) {
-            System.out.println((i++) + ":" + e.getKey());
-        }
+        loadBenchArtificial();
+        System.out.println("dataset: " + params.dataset);
 
         benchmarkFolder = params.home + '/' + "benchmark" + '/' + name;
         ensureFolder(benchmarkFolder);
         System.out.println("writing results to: " + benchmarkFolder);
 
         System.out.println("=== starting " + name);
-        ConsensusRun exp = new ConsensusRun(params, benchmarkFolder, (Dataset<? extends Instance>) availableDatasets.get(params.dataset));
+        ConsensusRun exp = new ConsensusRun(params, benchmarkFolder, provider.getDataset(params.dataset));
         ExecutorService execService = Executors.newFixedThreadPool(1);
         execService.submit(exp);
         execService.shutdown();
