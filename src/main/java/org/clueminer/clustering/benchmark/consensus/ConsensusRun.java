@@ -105,7 +105,6 @@ public class ConsensusRun implements Runnable {
             props.putInt("k", dataset.getClasses().size());
             double score;
             for (int i = 0; i < params.repeat; i++) {
-                System.out.println("run " + i);
                 c = exec.clusterRows(dataset, props);
                 for (ClusterEvaluation eval : evals) {
                     if (c.getEvaluationTable() != null) {
@@ -117,7 +116,7 @@ public class ConsensusRun implements Runnable {
                     table.put("run " + i, eval.getName(), score);
                 }
             }
-            rc.writeToCsv(csvRes);
+            rc.writeAvgColsCsv(table, csvRes);
 
         } catch (Exception e) {
             Exceptions.printStackTrace(e);
