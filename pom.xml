@@ -148,6 +148,7 @@
                 <configuration>
                     <publicPackages>
                         <publicPackage>org.clueminer.clustering.benchmark</publicPackage>
+                        <publicPackage>org.clueminer.data</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
