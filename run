@@ -1,0 +1,9 @@
+#!/bin/bash
+ARGS="$@"
+MAIN="org.clueminer.clustering.benchmark.Main"
+jarfile="$(ls -t target/*jar-with-dependencies.jar | head -1)"
+if [[ -f "$jarfile" ]]; then
+  java -jar $jarfile $ARGS
+else
+  mvn "-Dexec.args=-classpath %classpath $MAIN $ARGS" -Dexec.executable=java -Dexec.classpathScope=runtime org.codehaus.mojo:exec-maven-plugin:1.2.1:exec
+fi
