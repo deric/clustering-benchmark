@@ -221,6 +221,11 @@ public class DataLoader implements DataProvider {
             return getDataset(it.next());
         }
 
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("not supported yet.");
+        }
+
     }
 
 }
