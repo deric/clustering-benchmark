@@ -1,5 +1,7 @@
 # Clustering benchmarks
 
+This project contains set of clustering methods benchmarks on various dataset. The project is dependent on [Clueminer project](https://github.com/deric/clueminer).
+
 in order to run benchmark compile dependencies into a single JAR file:
 
     mvn assembly:assembly
