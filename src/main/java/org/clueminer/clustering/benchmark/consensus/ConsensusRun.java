@@ -87,11 +87,12 @@ public class ConsensusRun implements Runnable {
             String folder;
             EvaluationFactory ef = EvaluationFactory.getInstance();
             LinkedList<ClusterEvaluation> evals = new LinkedList<>();
-            evals.add(ef.getProvider("NMIsum"));
+            evals.add(ef.getProvider("NMI-sqrt"));
+            evals.add(ef.getProvider("NMI-sum"));
             evals.add(ef.getProvider("Adjusted Rand"));
             evals.add(ef.getProvider("Deviation"));
 
-            ClusteringAlgorithm alg = ClusteringFactory.getInstance().getProvider(params.method);
+            ClusteringAlgorithm alg = ClusteringFactory.getInstance().getProvider(params.algorithm);
             algorithm = safeName(alg.getName());
             Executor exec = new ClusteringExecutorCached(alg);
 
@@ -159,6 +160,8 @@ public class ConsensusRun implements Runnable {
                 p.put(KMeansBagging.INIT_METHOD, "MO");
                 p.put("mo_1", "AIC");
                 p.put("mo_2", "SD index");
+                break;
+            default:
                 break;
 
         }
