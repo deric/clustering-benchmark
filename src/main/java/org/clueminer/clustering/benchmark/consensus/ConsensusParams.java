@@ -37,4 +37,7 @@ public class ConsensusParams extends AbsParams {
     @Parameter(names = "--method", description = "Initialization and consensus approach")
     public String method = "";
 
+    @Parameter(names = "--fixed", description = "whether to use 'correct' k as parameter")
+    public boolean fixedK = false;
+
 }

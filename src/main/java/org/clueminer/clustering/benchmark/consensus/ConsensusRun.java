@@ -106,6 +106,9 @@ public class ConsensusRun implements Runnable {
             //ensureFolder(benchmarkFolder + File.separatorChar + name);
             Clustering c;
             Props props = algorithmSetup(params.method);
+            if (params.fixedK) {
+                props.putBoolean(KMeansBagging.FIXED_K, true);
+            }
             if (params.k > 0) {
                 props.putInt("k", params.k);
             } else {
