@@ -153,6 +153,12 @@ public class ConsensusRun implements Runnable {
                 p.put("mo_2", "SD index");
                 p.putInt(KMeansBagging.MAX_K, 25);
                 break;
+            case "KmB-COMUSA-RAND-fixed":
+                p.put(KMeansBagging.CONSENSUS, COMUSA.name);
+                p.put(KMeansBagging.INIT_METHOD, "RANDOM");
+                p.putDouble(COMUSA.RELAX, 1.0);
+                p.putBoolean(KMeansBagging.FIXED_K, true);
+                break;
             case "KmB-CoAssocHAC-MO-avg":
                 p.put(KMeansBagging.CONSENSUS, CoAssociationReduce.name);
                 p.put(KMeansBagging.INIT_METHOD, "MO");
