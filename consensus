@@ -1,0 +1,6 @@
+#!/bin/bash
+meth=("KmB-COMUSA-RAND" "KmB-COMUSA-MO" "KmB-COMUSA-RAND-fixed")
+for m in "${meth[@]}"; do
+ ./run consensus --repeat 10 --method "$m" --dataset "$@"
+done
+
