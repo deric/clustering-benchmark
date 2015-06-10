@@ -101,7 +101,7 @@ public class ConsensusRun implements Runnable {
             folder = benchmarkFolder + File.separatorChar + name;
             ensureFolder(folder);
 
-            String csvRes = folder + File.separatorChar + algorithm + "_" + name + ".csv";
+            String csvRes = folder + File.separatorChar + algorithm + "_" + params.method + "_" + name + ".csv";
             logger.log(Level.INFO, "dataset: {0} size: {1} num attr: {2}", new Object[]{name, dataset.size(), dataset.attributeCount()});
             //ensureFolder(benchmarkFolder + File.separatorChar + name);
             Clustering c;
@@ -109,8 +109,10 @@ public class ConsensusRun implements Runnable {
             if (params.k > 0) {
                 props.putInt("k", params.k);
             } else {
-                //use "correct" number of clusters if k not specified
-                props.putInt("k", dataset.getClasses().size());
+                if (!props.containsKey("k") && props.getBoolean(KMeansBagging.FIXED_K, false)) {
+                    //use "correct" number of clusters if k not specified
+                    props.putInt("k", dataset.getClasses().size());
+                }
             }
             double score;
             System.out.println(props.toString());
@@ -141,12 +143,15 @@ public class ConsensusRun implements Runnable {
                 p.put(KMeansBagging.CONSENSUS, COMUSA.name);
                 p.put(KMeansBagging.INIT_METHOD, "RANDOM");
                 p.putDouble(COMUSA.RELAX, 1.0);
+                p.putInt(KMeansBagging.MAX_K, 25);
                 break;
             case "KmB-COMUSA-MO":
                 p.put(KMeansBagging.CONSENSUS, COMUSA.name);
                 p.put(KMeansBagging.INIT_METHOD, "MO");
+                p.putDouble(COMUSA.RELAX, 1.0);
                 p.put("mo_1", "AIC");
                 p.put("mo_2", "SD index");
+                p.putInt(KMeansBagging.MAX_K, 25);
                 break;
             case "KmB-CoAssocHAC-MO-avg":
                 p.put(KMeansBagging.CONSENSUS, CoAssociationReduce.name);
