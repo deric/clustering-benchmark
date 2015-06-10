@@ -83,13 +83,16 @@ public class ConsensusRun implements Runnable {
     public void run() {
         try {
             String name;
+            String algorithm;
             String folder;
             EvaluationFactory ef = EvaluationFactory.getInstance();
             LinkedList<ClusterEvaluation> evals = new LinkedList<>();
             evals.add(ef.getProvider("NMIsum"));
             evals.add(ef.getProvider("Adjusted Rand"));
+            evals.add(ef.getProvider("Deviation"));
 
             ClusteringAlgorithm alg = ClusteringFactory.getInstance().getProvider(params.method);
+            algorithm = safeName(alg.getName());
             Executor exec = new ClusteringExecutorCached(alg);
 
             createTable();
@@ -97,13 +100,19 @@ public class ConsensusRun implements Runnable {
             folder = benchmarkFolder + File.separatorChar + name;
             ensureFolder(folder);
 
-            String csvRes = folder + File.separatorChar + "_" + name + ".csv";
+            String csvRes = folder + File.separatorChar + algorithm + "_" + name + ".csv";
             logger.log(Level.INFO, "dataset: {0} size: {1} num attr: {2}", new Object[]{name, dataset.size(), dataset.attributeCount()});
             //ensureFolder(benchmarkFolder + File.separatorChar + name);
             Clustering c;
             Props props = algorithmSetup(params.method);
-            props.putInt("k", dataset.getClasses().size());
+            if (params.k > 0) {
+                props.putInt("k", params.k);
+            } else {
+                //use "correct" number of clusters if k not specified
+                props.putInt("k", dataset.getClasses().size());
+            }
             double score;
+            System.out.println(props.toString());
             for (int i = 0; i < params.repeat; i++) {
                 c = exec.clusterRows(dataset, props);
                 for (ClusterEvaluation eval : evals) {
