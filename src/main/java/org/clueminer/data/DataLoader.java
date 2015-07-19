@@ -203,6 +203,16 @@ public class DataLoader implements DataProvider {
         return new DataLoaderIterator();
     }
 
+    @Override
+    public boolean hasDataset(String name) {
+        for (String dataset : datasets.keySet()) {
+            if (name.equals(dataset)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private class DataLoaderIterator implements Iterator<Dataset<? extends Instance>> {
 
         private final Iterator<String> it;
