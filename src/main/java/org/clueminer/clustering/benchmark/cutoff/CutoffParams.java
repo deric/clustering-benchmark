@@ -22,8 +22,12 @@ public class CutoffParams extends AbsParams {
     @Parameter(names = "--strategy", description = "Cutoff strategies to compare separated by ,")
     public String strategies = "hill-climb cutoff, hill-climb inc, First jump cutoff";
 
-    @Parameter(names = "--evals", description = "Iternal evaluations to compare separated by ,")
-    public String evals = "Silhouette, SD index";
+    @Parameter(names = "--internalEvals", description = "Iternal evaluations to compare separated by ,")
+    public String internalEvals = "Silhouette, SD index";
+
+    @Parameter(names = "--externalEvals", description = "External evaluations to determine quality of results"
+            + " separated by ,")
+    public String externalEvals = "NMI-sqrt, NMI-sum, Deviation, Adjusted Rand";
 
     @Parameter(names = "--startRange", description = "Range of the start parameter the in the First jump cutoff")
     public String startRange = "30-400";
