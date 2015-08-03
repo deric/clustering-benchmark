@@ -21,6 +21,7 @@ import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.safeName;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
+import org.clueminer.eval.hclust.HillClimbCutoff;
 import org.clueminer.utils.Props;
 import org.openide.util.Exceptions;
 
@@ -51,7 +52,7 @@ public class CutoffComparison implements Runnable {
             AgglomerativeClustering alg = (AgglomerativeClustering) ClusteringFactory.getInstance().getProvider(params.algorithm);
             folder = benchmarkFolder + File.separatorChar + "Cutoff comparison";
             ensureFolder(folder);
-            String csvRes = folder + File.separatorChar + "Cutoff comparison with " + safeName(alg.getName()) + ".csv";
+            String csvRes = folder + File.separatorChar + "Cutoff comparison with " + safeName(alg.getName()) + " on " + datasets.size() + " datasets.csv";
 
             PrintWriter writer = new PrintWriter(csvRes, "UTF-8");
             csv = new CSVWriter(writer, ',');
@@ -74,9 +75,9 @@ public class CutoffComparison implements Runnable {
                         Clustering c = rowsResult.getClustering();
 
                         averages.get(strategy.trim() + internalEval.trim()).addValues(c);
-                        writeValues(strategy.trim(), internalEval.trim(), c);
+                        writeValues(cutoff, internalEval.trim(), c);
 
-                        if (!"hill-climb cutoff".equals(strategy.trim()) && !"hill-climb inc".equals(strategy.trim())) {
+                        if (!(cutoff instanceof HillClimbCutoff) || !(cutoff instanceof HillClimbCutoff)) {
                             break;
                         }
                     }
@@ -113,10 +114,10 @@ public class CutoffComparison implements Runnable {
         csv.writeNext(row);
     }
 
-    private void writeValues(String strategy, String internaEval, Clustering c) {
+    private void writeValues(CutoffStrategy cutoff, String internaEval, Clustering c) {
         String row[] = new String[externalEvals.size() + 2];
-        row[0] = strategy;
-        if ("hill-climb cutoff".equals(strategy) || "hill-climb inc".equals(strategy)) {
+        row[0] = cutoff.getName();
+        if (cutoff instanceof HillClimbCutoff || cutoff instanceof HillClimbCutoff) {
             row[1] = internaEval;
         } else {
             row[1] = "";
@@ -163,7 +164,8 @@ public class CutoffComparison implements Runnable {
         String internalEvals[] = params.internalEvals.split(",");
         for (String strategy : strategies) {
             for (String internalEval : internalEvals) {
-                if (!"hill-climb cutoff".equals(strategy.trim()) && !"hill-climb inc".equals(strategy.trim())) {
+                CutoffStrategy cutoff = getCutoffStrategy(strategy.trim(), internalEval.trim());
+                if (!(cutoff instanceof HillClimbCutoff) || !(cutoff instanceof HillClimbCutoff)) {
                     averages.put(strategy.trim() + internalEval.trim(), new Average(strategy.trim()));
                     break;
                 } else {
