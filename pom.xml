@@ -140,8 +140,7 @@
         <dependency>
             <groupId>org.clueminer</groupId>
             <artifactId>chameleon</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <type>jar</type>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
