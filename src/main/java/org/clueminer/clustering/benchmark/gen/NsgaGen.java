@@ -20,6 +20,7 @@ import com.beust.jcommander.JCommander;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.clueminer.clustering.api.Cluster;
 import org.clueminer.clustering.api.ClusterEvaluation;
 import org.clueminer.clustering.api.factory.InternalEvaluatorFactory;
 import org.clueminer.clustering.benchmark.Bench;
@@ -63,7 +64,7 @@ public class NsgaGen extends Bench {
         System.out.println("writing results to: " + benchmarkFolder);
 
         System.out.println("=== starting " + name);
-        InternalEvaluatorFactory factory = InternalEvaluatorFactory.getInstance();
+        InternalEvaluatorFactory<Instance, Cluster<Instance>> factory = InternalEvaluatorFactory.getInstance();
         ClusterEvaluation c1 = factory.getProvider(params.c1);
         ClusterEvaluation c2 = factory.getProvider(params.c2);
         NsgaGenExp exp = new NsgaGenExp(params, benchmarkFolder, c1, c2, availableDatasets);

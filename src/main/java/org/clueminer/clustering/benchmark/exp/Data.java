@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import org.clueminer.clustering.algorithm.KMeans;
+import org.clueminer.clustering.api.Cluster;
 import org.clueminer.clustering.api.InternalEvaluator;
 import org.clueminer.clustering.api.factory.InternalEvaluatorFactory;
 import org.clueminer.dataset.api.Dataset;
@@ -136,7 +137,7 @@ public class Data extends Bench {
         }
         // DatasetFixture.allDatasets();
 
-        InternalEvaluatorFactory factory = InternalEvaluatorFactory.getInstance();
+        InternalEvaluatorFactory<Instance, Cluster<Instance>> factory = InternalEvaluatorFactory.getInstance();
         ExternalEvaluator ext = new JaccardIndex();
 
         String name;

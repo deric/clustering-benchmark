@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import org.clueminer.clustering.api.AgglomerativeClustering;
+import org.clueminer.clustering.api.Cluster;
 import org.clueminer.clustering.api.ClusterEvaluation;
 import org.clueminer.clustering.api.Clustering;
 import org.clueminer.clustering.api.ClusteringFactory;
@@ -153,7 +154,8 @@ public class CutoffComparison implements Runnable {
 
     private CutoffStrategy getCutoffStrategy(String strategy, String eval) {
         CutoffStrategy cutoffStrategy = CutoffStrategyFactory.getInstance().getProvider(strategy);
-        InternalEvaluator evaluator = InternalEvaluatorFactory.getInstance().getProvider(eval);
+        InternalEvaluatorFactory<Instance, Cluster<Instance>> ief = InternalEvaluatorFactory.getInstance();
+        InternalEvaluator evaluator = ief.getProvider(eval);
         cutoffStrategy.setEvaluator(evaluator);
         return cutoffStrategy;
     }
