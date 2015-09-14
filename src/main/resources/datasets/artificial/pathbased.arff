@@ -7,7 +7,7 @@
 @relation pathbased
 
 @ATTRIBUTE x REAL
-@ATTRIBUTE x REAL
+@ATTRIBUTE y REAL
 @ATTRIBUTE class {1,2,3}
 
 @DATA
