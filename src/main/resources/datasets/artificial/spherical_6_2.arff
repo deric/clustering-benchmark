@@ -7,6 +7,8 @@
 % pp. 1197-1208, 2002
 %
 %
+% source: http://www.isical.ac.in/~sanghami/data.html
+%
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL
 @ATTRIBUTE class {1,2,3,4,5,6}
