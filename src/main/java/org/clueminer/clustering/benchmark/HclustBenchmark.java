@@ -4,6 +4,7 @@ import org.clueminer.clustering.aggl.linkage.CompleteLinkage;
 import org.clueminer.clustering.aggl.linkage.SingleLinkage;
 import org.clueminer.clustering.api.AgglParams;
 import org.clueminer.clustering.api.AgglomerativeClustering;
+import org.clueminer.clustering.api.ClusteringType;
 import org.clueminer.clustering.api.HierarchicalResult;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
@@ -21,7 +22,7 @@ public class HclustBenchmark {
 
             @Override
             public HierarchicalResult hierarchical(AgglomerativeClustering algorithm, Dataset<? extends Instance> dataset, Props params) {
-                params.putBoolean(AgglParams.CLUSTER_ROWS, true);
+                params.put(AgglParams.CLUSTERING_TYPE, ClusteringType.ROWS_CLUSTERING);
                 params.put(AgglParams.LINKAGE, linkage);
 
                 return algorithm.hierarchy(dataset, params);

@@ -12,7 +12,8 @@
 % S. Bandyopadhyay and S. K. Pal, ``Classification and Learning Using Genetic
 % Algorithms: Applications in Bioinformatics and Web Intelligence", Springer,
 % Heidelberg, 2007
-
+% 
+% source: http://www.isical.ac.in/~sanghami/data.html
 @RELATION elliptical_10_2
 
 @ATTRIBUTE x REAL

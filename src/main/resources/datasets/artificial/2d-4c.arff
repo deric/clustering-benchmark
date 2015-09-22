@@ -1,3 +1,6 @@
+% Data from J. Handl
+% http://personalpages.manchester.ac.uk/mbs/Julia.Handl/generators.html
+%
 @RELATION 2d-4c.arff
 
 @ATTRIBUTE a0 REAL
