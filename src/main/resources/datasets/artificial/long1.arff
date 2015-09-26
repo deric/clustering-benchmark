@@ -1,5 +1,8 @@
 @RELATION long1.arff
 
+% Handl, Julia, and Joshua Knowles. "Multiobjective clustering with automatic determination of the number of clusters."
+% UMIST, Manchester, Tech. Rep. TR-COMPSYSBIO-2004-02 (2004).
+
 @ATTRIBUTE a0 REAL
 @ATTRIBUTE a1 REAL
 @ATTRIBUTE class {0,1}
