@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import org.clueminer.clustering.api.AgglomerativeClustering;
-import org.clueminer.dataset.benchmark.GnuplotHelper;
-import org.clueminer.dataset.benchmark.PointTypeIterator;
+import org.clueminer.gnuplot.GnuplotHelper;
+import org.clueminer.gnuplot.PointTypeIterator;
 import org.clueminer.report.BigORes;
 import org.clueminer.report.Reporter;
 import org.openide.util.Exceptions;
@@ -41,13 +41,13 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         String tpsPath = dataDir + File.separatorChar + "tps" + suffix + ".gpt";
 
         writePlotScript(new File(memPath),
-                        plotComplexity(8, "memory (kB)", 10, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
+                plotComplexity(8, "memory (kB)", 10, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(cpuPath),
-                        plotCpu(8, "CPU", 10, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
+                plotCpu(8, "CPU", 10, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(cpu2Path),
-                        plotComplexity(8, "CPU time", 10, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
+                plotComplexity(8, "CPU time", 10, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(tpsPath),
-                        plotComplexity(8, "tps", 10, 5, dataFile.getName(), algorithms, "Transactuion per second - " + opts[1], true));
+                plotComplexity(8, "tps", 10, 5, dataFile.getName(), algorithms, "Transactuion per second - " + opts[1], true));
 
         writeBashScript(folder);
     }
@@ -74,7 +74,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
 
     /**
      *
-     * @param file     to write Gnuplot script
+     * @param file to write Gnuplot script
      * @param dataFile
      * @param labelPos column of label which is used for data rows in chart
      * @param type
@@ -170,8 +170,8 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
 
     private void writeBashScript(String dataDir) {
         try {
-            bashPlotScript(plots.toArray(new String[plots.size()]), dataDir, "set term pdf font 'Times-New-Roman,8'", "pdf");
-            bashPlotScript(plots.toArray(new String[plots.size()]), dataDir, "set terminal pngcairo size 1024,768 enhanced font 'Verdana,10'", "png");
+            bashPlotScript(plots.toArray(new String[plots.size()]), dataDir, "data", "set term pdf font 'Times-New-Roman,8'", "pdf");
+            bashPlotScript(plots.toArray(new String[plots.size()]), dataDir, "data", "set terminal pngcairo size 1024,768 enhanced font 'Verdana,10'", "png");
 
         } catch (FileNotFoundException ex) {
             Exceptions.printStackTrace(ex);
