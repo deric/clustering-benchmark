@@ -9,7 +9,7 @@
 %
 % main problem: density vs. distance
 %
-@relation WingNut
+@relation wingnut
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

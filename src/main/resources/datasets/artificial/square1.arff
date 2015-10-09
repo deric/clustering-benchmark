@@ -1,4 +1,4 @@
-@RELATION square1.arff
+@RELATION square1
 
 @ATTRIBUTE a0 REAL
 @ATTRIBUTE a1 REAL

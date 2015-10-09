@@ -9,7 +9,7 @@
 %
 % main problem: different variances and inter cluster distances
 %
-@relation Lsun
+@relation lsun
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

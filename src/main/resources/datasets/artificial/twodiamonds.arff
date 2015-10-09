@@ -9,7 +9,7 @@
 %
 % main problem: cluster border defined by density
 %
-@relation TwoDiamonds
+@relation twodiamonds
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

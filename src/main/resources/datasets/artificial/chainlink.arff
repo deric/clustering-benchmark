@@ -9,7 +9,7 @@
 %
 % main problem: linear not separable
 %
-@relation Chainlink
+@relation chainlink
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

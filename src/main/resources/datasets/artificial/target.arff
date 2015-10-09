@@ -9,7 +9,7 @@
 %
 % main problem: outlier
 %
-@relation Target
+@relation target
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

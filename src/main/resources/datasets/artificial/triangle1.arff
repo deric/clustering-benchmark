@@ -1,4 +1,4 @@
-@RELATION triangle1.arff
+@RELATION triangle1
 
 @ATTRIBUTE a0 REAL
 @ATTRIBUTE a1 REAL

@@ -9,7 +9,7 @@
 %
 % main problem: almost touching clusters
 %
-@relation Tetra
+@relation tetra
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

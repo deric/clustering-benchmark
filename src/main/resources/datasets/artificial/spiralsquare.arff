@@ -1,4 +1,4 @@
-@RELATION spiralsquare.arff
+@RELATION spiralsquare
 
 @ATTRIBUTE a0 REAL
 @ATTRIBUTE a1 REAL

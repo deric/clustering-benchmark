@@ -9,7 +9,7 @@
 %
 % main problem: different variances and linear not separable
 %
-@relation Atom
+@relation atom
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL
