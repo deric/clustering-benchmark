@@ -1,4 +1,4 @@
-@RELATION chameleon-t5.8k
+@RELATION cluto-t5.8k
 %
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL
