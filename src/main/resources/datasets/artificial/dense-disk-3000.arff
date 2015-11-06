@@ -1,4 +1,4 @@
-@RELATION dense-disk-3000
+@RELATION dense-disk-3k
 %
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL

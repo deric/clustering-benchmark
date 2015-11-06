@@ -5,9 +5,7 @@ import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.math.Matrix;
-import org.junit.After;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -17,21 +15,6 @@ import org.junit.Test;
 public class ExperimentTest {
 
     private Experiment subject;
-
-    public ExperimentTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    @Test
-    public void testRun() {
-    }
 
     @Test
     public void testGenerateData() {
