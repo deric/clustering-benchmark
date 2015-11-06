@@ -1,4 +1,4 @@
-package org.clueminer.clustering.benchmark.cuotoff;
+package org.clueminer.clustering.benchmark.cutoff;
 
 import com.beust.jcommander.JCommander;
 import java.util.ArrayList;
@@ -7,9 +7,6 @@ import java.util.concurrent.Executors;
 import org.clueminer.clustering.benchmark.Bench;
 import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.printUsage;
-import org.clueminer.clustering.benchmark.cutoff.CutoffParams;
-import org.clueminer.clustering.benchmark.cutoff.CutoffComparison;
-import org.clueminer.clustering.benchmark.cutoff.FirstJumpOptimization;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 

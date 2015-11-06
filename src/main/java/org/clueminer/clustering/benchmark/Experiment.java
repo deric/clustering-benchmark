@@ -30,7 +30,13 @@ public class Experiment implements Runnable {
     public void run() {
         int inc = (params.n - params.nSmall) / params.steps;
 
-        GnuplotReporter reporter = new GnuplotReporter(results, new String[]{"algorithm", "linkage", "n"}, algorithms, params.nSmall + "-" + params.n);
+        String[] names = new String[algorithms.length];
+        int j = 0;
+        for (AgglomerativeClustering alg : algorithms) {
+            names[j++] = alg.getName();
+        }
+
+        GnuplotReporter reporter = new GnuplotReporter(results, new String[]{"algorithm", "linkage", "n"}, names, params.nSmall + "-" + params.n);
         System.out.println("increment = " + inc);
         for (int i = params.nSmall; i <= params.n; i += inc) {
             Dataset<? extends Instance> dataset = generateData(i, params.dimension);

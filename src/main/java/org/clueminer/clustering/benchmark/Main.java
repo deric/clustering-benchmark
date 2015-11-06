@@ -1,17 +1,18 @@
 package org.clueminer.clustering.benchmark;
 
-import org.clueminer.clustering.benchmark.exp.Data;
-import org.clueminer.clustering.benchmark.exp.HclusPar;
-import org.clueminer.clustering.benchmark.exp.HclusPar2;
-import org.clueminer.clustering.benchmark.exp.Hclust;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.clueminer.clustering.benchmark.consensus.ConsensusExp;
-import org.clueminer.clustering.benchmark.cuotoff.CutoffExp;
+import org.clueminer.clustering.benchmark.cutoff.CutoffExp;
+import org.clueminer.clustering.benchmark.exp.Data;
 import org.clueminer.clustering.benchmark.exp.EvolveScores;
+import org.clueminer.clustering.benchmark.exp.HclusPar;
+import org.clueminer.clustering.benchmark.exp.HclusPar2;
+import org.clueminer.clustering.benchmark.exp.Hclust;
 import org.clueminer.clustering.benchmark.gen.NsgaGen;
 import org.clueminer.clustering.benchmark.nsga.NsgaScore;
+import org.clueminer.clustering.benchmark.partition.PartitionExp;
 
 /**
  *
@@ -32,6 +33,7 @@ public class Main {
         map.put("nsga-gen", new NsgaGen());
         map.put("consensus", new ConsensusExp());
         map.put("cutoff", new CutoffExp());
+        map.put("partition", new PartitionExp());
     }
 
     /**

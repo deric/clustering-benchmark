@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
-import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.gnuplot.GnuplotHelper;
 import org.clueminer.gnuplot.PointTypeIterator;
 import org.clueminer.report.BigORes;
@@ -22,16 +21,12 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
 
     private final String dataDir;
     private final File dataFile;
-    private final String folder;
-    private final AgglomerativeClustering[] algorithms;
     private final LinkedList<String> plots;
 
-    public GnuplotReporter(String folder, String[] opts, AgglomerativeClustering[] algorithms, String suffix) {
+    public GnuplotReporter(String folder, String[] opts, String[] algorithms, String suffix) {
         this.dataDir = folder + File.separatorChar + "data";
         mkdir(dataDir);
         this.dataFile = new File(dataDir + File.separatorChar + "results-" + suffix + ".csv");
-        this.algorithms = algorithms;
-        this.folder = folder;
         this.plots = new LinkedList<>();
         writeHeader(opts);
 
@@ -39,6 +34,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         String cpuPath = dataDir + File.separatorChar + "cpu" + suffix + ".gpt";
         String cpu2Path = dataDir + File.separatorChar + "cpu2" + suffix + ".gpt";
         String tpsPath = dataDir + File.separatorChar + "tps" + suffix + ".gpt";
+
 
         writePlotScript(new File(memPath),
                 plotComplexity(8, "memory (kB)", 10, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
@@ -93,7 +89,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         plots.add(withoutExtension(file));
     }
 
-    private String plotCpu(int labelPos, String yLabel, int x, int y, String dataFile, AgglomerativeClustering[] algorithms, String title, boolean logscale) {
+    private String plotCpu(int labelPos, String yLabel, int x, int y, String dataFile, String[] algorithms, String title, boolean logscale) {
         String res = "set datafile separator \",\"\n"
                 + "set key outside bottom horizontal box\n"
                 + "set title \"" + title + "\"\n"
@@ -111,13 +107,13 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         }
         int i = 0;
         PointTypeIterator pti = new PointTypeIterator();
-        for (AgglomerativeClustering alg : algorithms) {
+        for (String alg : algorithms) {
             if (i == 0) {
                 res += "plot ";
             }
-            res += "\"< awk -F\\\",\\\" '{if($" + labelPos + " == \\\"" + alg.getName()
+            res += "\"< awk -F\\\",\\\" '{if($" + labelPos + " == \\\"" + alg
                     + "\\\") print}' " + dataFile + "\" u " + x + ":" + y
-                    + " t \"" + alg.getName() + "\" w linespoints pt " + pti.next();
+                    + " t \"" + alg + "\" w linespoints pt " + pti.next();
             res += ", \\\n";
             i++;
         }
@@ -125,7 +121,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         return res;
     }
 
-    private String plotComplexity(int labelPos, String yLabel, int x, int y, String dataFile, AgglomerativeClustering[] algorithms, String title, boolean logscale) {
+    private String plotComplexity(int labelPos, String yLabel, int x, int y, String dataFile, String[] algorithms, String title, boolean logscale) {
         String res = "set datafile separator \",\"\n"
                 + "set key outside bottom horizontal box\n"
                 + "set title \"" + title + "\"\n"
@@ -143,13 +139,13 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         int i = 0;
         int last = algorithms.length - 1;
         PointTypeIterator pti = new PointTypeIterator();
-        for (AgglomerativeClustering alg : algorithms) {
+        for (String alg : algorithms) {
             if (i == 0) {
                 res += "plot ";
             }
-            res += "\"< awk -F\\\",\\\" '{if($" + labelPos + " == \\\"" + alg.getName()
+            res += "\"< awk -F\\\",\\\" '{if($" + labelPos + " == \\\"" + alg
                     + "\\\") print}' " + dataFile + "\" u " + x + ":" + y
-                    + " t \"" + alg.getName() + "\" w linespoints pt " + pti.next();
+                    + " t \"" + alg + "\" w linespoints pt " + pti.next();
             if (i != last) {
                 res += ", \\\n";
             } else {
@@ -180,6 +176,38 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }
+    }
+
+    /**
+     *
+     * @param plots plot names without extension
+     * @param dir base dir
+     * @param gnuplotDir directory with gnuplot file
+     * @param term
+     * @param ext extentions of output format
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     */
+    public static void bashPlotScript(String[] plots, String dir, String gnuplotDir, String term, String ext)
+            throws FileNotFoundException, UnsupportedEncodingException, IOException {
+        //bash script to generate results
+        String shFile = dir + File.separatorChar + "_plot-" + ext;
+        try (PrintWriter template = new PrintWriter(shFile, "UTF-8")) {
+            template.write(bashTemplate(gnuplotDir));
+            template.write("TERM=\"" + term + "\"\n");
+            int pos;
+            for (String plot : plots) {
+                pos = plot.indexOf(".");
+                if (pos > 0) {
+                    //remove extension part
+                    plot = plot.substring(0, pos);
+                }
+                template.write("gnuplot -e \"${TERM}\" " + plot + gnuplotExtension
+                        + " > $PWD" + File.separatorChar + ".." + File.separatorChar + plot + "." + ext + "\n");
+            }
+        }
+        Runtime.getRuntime().exec("chmod u+x " + shFile);
     }
 
 }
