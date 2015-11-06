@@ -6,7 +6,7 @@ This project contains collection of labelled clustering problems that can be fou
 
 ### 2d-10c
 
-![2d-10c](https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/2d10c.png)
+![2d-10c](https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/2d-10c.png)
 
 ```
 J. Handl and J. Knowles, “Multiobjective clustering with automatic
