@@ -6,14 +6,14 @@ Dir["src/main/resources/datasets/artificial/*.arff"].each do |f|
 end
 
 def basename(file)
-  file.sub(/\..*/, '')
+  file[0...file.rindex('.')]
 end
 
 
 datasets.sort.each do |data|
   base = basename(data)
 img = <<-EOS
-<a href="https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/#{data}"><img src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/#{base.downcase}.png" alt="#{base}" title="#{base}" width="250px" style="max-width: 100%;float:left;"/></a>
+<a href="https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/#{data}"><img src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/#{base.downcase}.png" alt="#{base}" title="#{base}" width="240px" style="max-width: 100%;float:left;"/></a>
 EOS
 puts img
 end
