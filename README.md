@@ -4,10 +4,10 @@
 
 This project contains collection of labeled clustering problems that can be found in the literature. Most of datasets were artificially created.
 
-The benchmark includes
+The benchmark includes:
 
-  * [artificial](https://github.com/deric/clustering-benchmark/tree/master/src/main/resources/datasets/artificial)
-  * [real world data sets](https://github.com/deric/clustering-benchmark/tree/master/src/main/resources/datasets/real-world)
+  * [artificial datasets](https://github.com/deric/clustering-benchmark/tree/master/src/main/resources/datasets/artificial)
+  * [real world datasets](https://github.com/deric/clustering-benchmark/tree/master/src/main/resources/datasets/real-world)
 
 ### Artificial data
 
