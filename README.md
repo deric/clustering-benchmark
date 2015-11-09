@@ -8,21 +8,26 @@ This project contains collection of labelled clustering problems that can be fou
 
 <img alt="2d-10c" align="right" width="400px" src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/2d-10c.png">
 
-```
-J. Handl and J. Knowles, “Multiobjective clustering with automatic
-determination of the number of clusters,” UMIST, Tech. Rep., 2004.
-```
 * 2 dimensions, 10 clusters, 2990 data points
 * [ARFF](https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/2d-10c.arff)
 * [generator](https://github.com/deric/handl-data-generators)
 
+<div style="clear: both;"></div>
+
+```
+J. Handl and J. Knowles, “Multiobjective clustering with automatic
+determination of the number of clusters,” UMIST, Tech. Rep., 2004.
+```
+
 ### atom
 
-![atom](https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/atom.png)
+<img alt="atom" align="right" width="400px" src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/atom.png">
 
 * 3 dimensions, 2 clusters, 800 data points
 * source: [FCPS](https://www.uni-marburg.de/fb12/datenbionik/data?language_sync=1)
 * [ARFF](https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/atom.arff)
+
+<br />
 
 ### aggregation
 
