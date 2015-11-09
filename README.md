@@ -4,6 +4,13 @@
 
 This project contains collection of labeled clustering problems that can be found in the literature. Most of datasets were artificially created.
 
+The benchmark includes
+
+  * [artificial](https://github.com/deric/clustering-benchmark/tree/master/src/main/resources/datasets/artificial)
+  * [real world data sets](https://github.com/deric/clustering-benchmark/tree/master/src/main/resources/datasets/real-world)
+
+### Artificial data
+
 <a href="https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/2d-10c.arff"><img src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/2d-10c.png" alt="2d-10c" title="2d-10c" width="239px" style="max-width: 100%;float:left;"/></a>
 <a href="https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/2d-20c-no0.arff"><img src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/2d-20c-no0.png" alt="2d-20c-no0" title="2d-20c-no0" width="239px" style="max-width: 100%;float:left;"/></a>
 <a href="https://github.com/deric/clustering-benchmark/blob/master/src/main/resources/datasets/artificial/2d-3c-no123.arff"><img src="https://github.com/deric/clustering-benchmark/blob/images/fig/artificial/2d-3c-no123.png" alt="2d-3c-no123" title="2d-3c-no123" width="239px" style="max-width: 100%;float:left;"/></a>
