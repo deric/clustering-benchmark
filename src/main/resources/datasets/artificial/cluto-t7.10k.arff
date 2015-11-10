@@ -1,3 +1,9 @@
+% source: G. Karypis, "CLUTO A Clustering Toolkit," Dept. of Computer Science, University of Minnesota,
+% Tech. Rep. 02-017, 2002, available at http://www.cs.umn.edu/~cluto
+%
+% Karypis, George, Eui-Hong Han, and Vipin Kumar.
+% "Chameleon: Hierarchical clustering using dynamic modeling." Computer 32.8 (1999): 68-75.
+%
 @RELATION cluto-t7.10k
 %
 @ATTRIBUTE x REAL
