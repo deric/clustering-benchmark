@@ -3,7 +3,7 @@
 %
 % source: http://cs.joensuu.fi/sipu/datasets/
 %
-@relation spiral2
+@relation 3-spiral
 
 @ATTRIBUTE x REAL
 @ATTRIBUTE x REAL
