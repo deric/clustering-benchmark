@@ -3,16 +3,15 @@ package org.clueminer.clustering.benchmark;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.clueminer.clustering.aggl.HAC;
-import org.clueminer.clustering.aggl.HACLW;
-import org.clueminer.clustering.aggl.HACLWMS;
+import org.clueminer.clustering.aggl.HC;
+import org.clueminer.clustering.aggl.HCLW;
+import org.clueminer.clustering.aggl.linkage.AverageLinkage;
+import org.clueminer.clustering.aggl.linkage.MedianLinkage;
+import org.clueminer.clustering.aggl.linkage.SingleLinkage;
 import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.fixtures.clustering.FakeDatasets;
-import org.clueminer.clustering.aggl.linkage.AverageLinkage;
-import org.clueminer.clustering.aggl.linkage.MedianLinkage;
-import org.clueminer.clustering.aggl.linkage.SingleLinkage;
 import org.clueminer.report.NanoBench;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
@@ -28,7 +27,7 @@ public class HclustBenchmarkTest {
 
     public HclustBenchmarkTest() {
         //algorithms = new AgglomerativeClustering[]{new HAC(), new HACLW(), new HCL(), new HACLWMS()};
-        algorithms = new AgglomerativeClustering[]{new HAC(), new HACLW()};
+        algorithms = new AgglomerativeClustering[]{new HC(), new HCLW()};
     }
 
     @BeforeClass
@@ -66,12 +65,12 @@ public class HclustBenchmarkTest {
         //Dataset<? extends Instance> dataset = FakeDatasets.schoolData();
         Dataset<? extends Instance> dataset = FakeDatasets.kumarData();
         //use one algorithm as reference one
-        AgglomerativeClustering alg1 = new HAC();
+        AgglomerativeClustering alg1 = new HC();
         Container ref = new HclustBenchmark().completeLinkage(alg1, dataset);
         ref.run();
         Container other;
 
-        AgglomerativeClustering alg2 = new HACLW();
+        AgglomerativeClustering alg2 = new HCLW();
         other = new HclustBenchmark().completeLinkage(alg2, dataset);
         other.run();
         System.out.println("comparing " + algorithms[0].getName() + " vs " + alg2.getName());
@@ -106,7 +105,7 @@ public class HclustBenchmarkTest {
         String linkage = MedianLinkage.name;
         Dataset<? extends Instance> dataset = FakeDatasets.schoolData();
 
-        compareTreeResults(dataset, linkage, new AgglomerativeClustering[]{new HAC(), new HACLW()});
+        compareTreeResults(dataset, linkage, new AgglomerativeClustering[]{new HC(), new HCLW()});
     }
 
     private void compareTreeResults(Dataset<? extends Instance> dataset, String linkage, AgglomerativeClustering[] algs) {

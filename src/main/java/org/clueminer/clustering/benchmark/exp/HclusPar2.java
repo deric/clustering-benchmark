@@ -3,8 +3,8 @@ package org.clueminer.clustering.benchmark.exp;
 import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.clueminer.clustering.aggl.HACLW;
-import org.clueminer.clustering.aggl.HACLWMS;
+import org.clueminer.clustering.aggl.HCLW;
+import org.clueminer.clustering.aggl.HCLWMS;
 import org.clueminer.clustering.aggl.HacLwMsPar;
 import org.clueminer.clustering.aggl.HacLwMsPar2;
 import org.clueminer.clustering.api.AgglomerativeClustering;
@@ -32,7 +32,7 @@ public class HclusPar2 extends Hclust {
         System.out.println("# n = " + params.n);
         System.out.println("=== starting experiment:");
         AgglomerativeClustering[] algorithms = new AgglomerativeClustering[]{
-            new HACLW(), new HACLWMS(), new HacLwMsPar(2), new HacLwMsPar(4), new HacLwMsPar2(2), new HacLwMsPar2(4)
+            new HCLW(), new HCLWMS(), new HacLwMsPar(2), new HacLwMsPar(4), new HacLwMsPar2(2), new HacLwMsPar2(4)
         };
         Experiment exp = new Experiment(params, benchmarkFolder, algorithms);
         ExecutorService execService = Executors.newFixedThreadPool(1);
