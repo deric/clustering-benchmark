@@ -2,7 +2,7 @@
 %
 % A Rodriguez, A Laio, Clustering by fast search and find of density peaks, SCIENCE, 1492, vol 322 (2014)
 %
-@RELATION clusterDP_c
+@RELATION dpc
 %
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL
