@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 clueminer.org
+ * Copyright (C) 2011-2016 clueminer.org
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,8 @@ import java.util.TreeMap;
 import org.clueminer.dataset.api.DataProvider;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
-import org.clueminer.dataset.plugin.ArrayDataset;
+import org.clueminer.dataset.impl.ArrayDataset;
+import org.clueminer.exception.ParserError;
 import org.clueminer.io.ARFFHandler;
 import org.openide.util.Exceptions;
 
@@ -103,7 +104,7 @@ public class DataLoader implements DataProvider {
                 ARFFHandler arff = new ARFFHandler();
                 try {
                     arff.load(resource(name + "." + type, fullPath), dataset);
-                } catch (FileNotFoundException ex) {
+                } catch (FileNotFoundException | ParserError ex) {
                     Exceptions.printStackTrace(ex);
                 }
                 break;

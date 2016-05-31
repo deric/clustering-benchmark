@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 clueminer.org
+ * Copyright (C) 2011-2016 clueminer.org
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@ import static org.clueminer.chameleon.Chameleon.MAX_PARTITION;
 import org.clueminer.clustering.benchmark.GnuplotReporter;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
-import org.clueminer.dataset.plugin.ArrayDataset;
-import org.clueminer.graph.knn.KNNGraphBuilder;
+import org.clueminer.dataset.impl.ArrayDataset;
 import org.clueminer.graph.adjacencyMatrix.AdjMatrixGraph;
 import org.clueminer.graph.api.Graph;
+import org.clueminer.graph.knn.KNNGraphBuilder;
 import org.clueminer.partitioning.api.Partitioning;
 import org.clueminer.report.NanoBench;
 import org.clueminer.utils.Props;

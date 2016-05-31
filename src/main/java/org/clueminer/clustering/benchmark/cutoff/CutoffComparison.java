@@ -1,6 +1,5 @@
 package org.clueminer.clustering.benchmark.cutoff;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import org.clueminer.clustering.api.factory.EvaluationFactory;
 import org.clueminer.clustering.api.factory.InternalEvaluatorFactory;
 import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.safeName;
+import org.clueminer.csv.CSVWriter;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.eval.hclust.HillClimbCutoff;
