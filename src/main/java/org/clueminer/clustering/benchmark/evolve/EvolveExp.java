@@ -24,7 +24,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.clueminer.clustering.api.AgglParams;
+import org.clueminer.clustering.api.AlgParams;
 import org.clueminer.clustering.api.ClusterEvaluation;
 import org.clueminer.clustering.api.factory.ExternalEvaluatorFactory;
 import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
@@ -95,7 +95,7 @@ public class EvolveExp implements Runnable {
                     evolution.setPopulationSize(params.population);
                     GnuplotWriter gw = new GnuplotWriter(evolution, benchmarkFolder, name + File.separatorChar + safeName(eval.getName()));
                     gw.setPlotDumpMod(50);
-                    gw.setCustomTitle("cutoff=" + evolution.getDefaultParam(AgglParams.CUTOFF_STRATEGY) + "(" + evolution.getDefaultParam(AgglParams.CUTOFF_SCORE) + ")");
+                    gw.setCustomTitle("cutoff=" + evolution.getDefaultParam(AlgParams.CUTOFF_STRATEGY) + "(" + evolution.getDefaultParam(AlgParams.CUTOFF_SCORE) + ")");
                     //collect data from evolution
                     evolution.addEvolutionListener(new ConsoleDump());
                     evolution.addEvolutionListener(gw);

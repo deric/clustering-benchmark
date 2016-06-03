@@ -30,7 +30,7 @@ import org.clueminer.bagging.CoAssociationReduce;
 import org.clueminer.bagging.KMeansBagging;
 import org.clueminer.clustering.ClusteringExecutorCached;
 import org.clueminer.clustering.aggl.linkage.AverageLinkage;
-import org.clueminer.clustering.api.AgglParams;
+import org.clueminer.clustering.api.AlgParams;
 import org.clueminer.clustering.api.ClusterEvaluation;
 import org.clueminer.clustering.api.Clustering;
 import org.clueminer.clustering.api.ClusteringAlgorithm;
@@ -165,7 +165,7 @@ public class ConsensusRun implements Runnable {
                 p.put(KMeansBagging.INIT_METHOD, "MO");
                 p.put("mo_1", "AIC");
                 p.put("mo_2", "SD index");
-                p.put(AgglParams.LINKAGE, AverageLinkage.name);
+                p.put(AlgParams.LINKAGE, AverageLinkage.name);
                 break;
             case "KmB-CoAssocHAC-MO-AIC_SD":
                 p.put(KMeansBagging.CONSENSUS, CoAssociationReduce.name);

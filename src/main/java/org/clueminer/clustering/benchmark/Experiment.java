@@ -29,13 +29,20 @@ import org.openide.util.Exceptions;
 /**
  *
  * @author Tomas Barton
+ * @param <E>
  */
-public class Experiment implements Runnable {
+public class Experiment<E extends Instance> implements Runnable {
 
     protected final Random rand;
     protected final BenchParams params;
-    protected final ClusteringAlgorithm[] algorithms;
+    private ClusteringAlgorithm[] algorithms;
     protected final String results;
+
+    public Experiment(BenchParams params, String results) {
+        rand = new Random();
+        this.params = params;
+        this.results = results;
+    }
 
     public Experiment(BenchParams params, String results, ClusteringAlgorithm[] algorithms) {
         rand = new Random();
@@ -60,7 +67,7 @@ public class Experiment implements Runnable {
         Container container;
         AgglomerativeClustering aggl;
         for (int i = params.nSmall; i <= params.n; i += inc) {
-            Dataset<? extends Instance> dataset = generateData(i, params.dimension);
+            Dataset<E> dataset = generateData(i, params.dimension);
             for (ClusteringAlgorithm alg : algorithms) {
                 String[] opts = new String[]{alg.getName(), params.linkage, String.valueOf(dataset.size())};
 
@@ -96,9 +103,9 @@ public class Experiment implements Runnable {
      * @param dim
      * @return
      */
-    protected Dataset<? extends Instance> generateData(int size, int dim) {
+    protected Dataset<E> generateData(int size, int dim) {
         System.out.println("generating data: " + size + " x " + dim);
-        Dataset<? extends Instance> dataset = new ArrayDataset<>(size, dim);
+        Dataset<E> dataset = new ArrayDataset<>(size, dim);
         for (int i = 0; i < dim; i++) {
             dataset.attributeBuilder().create("attr-" + i, "NUMERIC");
         }

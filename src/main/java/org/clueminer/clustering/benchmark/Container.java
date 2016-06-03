@@ -19,8 +19,10 @@ package org.clueminer.clustering.benchmark;
 import java.util.logging.Logger;
 import org.clueminer.clustering.TreeDiff;
 import org.clueminer.clustering.api.AgglomerativeClustering;
+import org.clueminer.clustering.api.AlgParams;
 import org.clueminer.clustering.api.Clustering;
 import org.clueminer.clustering.api.ClusteringAlgorithm;
+import org.clueminer.clustering.api.ClusteringType;
 import org.clueminer.clustering.api.HierarchicalResult;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
@@ -31,7 +33,7 @@ import org.clueminer.utils.Props;
  * @author Tomas Barton
  * @param <E>
  */
-public abstract class Container<E extends Instance> implements Runnable {
+public class Container<E extends Instance> implements Runnable {
 
     private HierarchicalResult result;
     private Clustering clustering;
@@ -46,13 +48,16 @@ public abstract class Container<E extends Instance> implements Runnable {
         this.params = new Props();
     }
 
-    public Container(AgglomerativeClustering algorithm, Dataset<E> dataset, Props params) {
+    public Container(ClusteringAlgorithm algorithm, Dataset<E> dataset, Props params) {
         this.algorithm = algorithm;
         this.dataset = dataset;
         this.params = params;
     }
 
-    public abstract HierarchicalResult hierarchical(AgglomerativeClustering algorithm, Dataset<E> dataset, Props params);
+    public HierarchicalResult hierarchical(AgglomerativeClustering algorithm, Dataset<E> dataset, Props params) {
+        params.put(AlgParams.CLUSTERING_TYPE, ClusteringType.ROWS_CLUSTERING);
+        return algorithm.hierarchy(dataset, params);
+    }
 
     @Override
     public void run() {
@@ -60,6 +65,7 @@ public abstract class Container<E extends Instance> implements Runnable {
             this.result = hierarchical((AgglomerativeClustering) algorithm, dataset, params);
         } else {
             this.clustering = cluster(algorithm, dataset, params);
+            System.out.println(params.toJson());
         }
     }
 

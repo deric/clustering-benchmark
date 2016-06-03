@@ -18,11 +18,10 @@ package org.clueminer.clustering.benchmark;
 
 import org.clueminer.clustering.aggl.linkage.CompleteLinkage;
 import org.clueminer.clustering.aggl.linkage.SingleLinkage;
-import org.clueminer.clustering.api.AgglParams;
 import org.clueminer.clustering.api.AgglomerativeClustering;
+import org.clueminer.clustering.api.AlgParams;
 import org.clueminer.clustering.api.ClusteringAlgorithm;
-import org.clueminer.clustering.api.ClusteringType;
-import org.clueminer.clustering.api.HierarchicalResult;
+import org.clueminer.clustering.api.ClusteringFactory;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.utils.Props;
@@ -35,27 +34,21 @@ import org.clueminer.utils.Props;
  */
 public class ClusteringBenchmark<E extends Instance> {
 
-    private Container<E> createContainer(final ClusteringAlgorithm algorithm, final Dataset<E> dataset, final Props props) {
-        return new Container<E>(algorithm, dataset) {
+    public Container<E> cluster(Dataset<E> dataset, Props props) {
+        ClusteringFactory cf = ClusteringFactory.getInstance();
+        ClusteringAlgorithm algorithm = cf.getProvider(props.get(AlgParams.ALG));
 
-            @Override
-            public HierarchicalResult hierarchical(AgglomerativeClustering algorithm, Dataset<E> dataset, Props params) {
-                params.put(AgglParams.CLUSTERING_TYPE, ClusteringType.ROWS_CLUSTERING);
-                params.put(AgglParams.LINKAGE, props.get(AgglParams.LINKAGE));
-
-                return algorithm.hierarchy(dataset, params);
-            }
-        };
+        return new Container(algorithm, dataset, props);
     }
 
     public Container<E> cluster(ClusteringAlgorithm algorithm, Dataset<E> dataset, Props props) {
-        return createContainer(algorithm, dataset, props);
+        return new Container(algorithm, dataset, props);
     }
 
     public Container<E> hclust(final AgglomerativeClustering algorithm, final Dataset<E> dataset, final String linkage) {
         Props props = new Props();
-        props.put(AgglParams.LINKAGE, linkage);
-        final Container<E> runnable = createContainer(algorithm, dataset, props);
+        props.put(AlgParams.LINKAGE, linkage);
+        final Container<E> runnable = new Container(algorithm, dataset, props);
         return runnable;
     }
 
