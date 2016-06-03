@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-2016 clueminer.org
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.clueminer.clustering.benchmark;
 
 import java.util.logging.ConsoleHandler;
@@ -44,7 +60,7 @@ public class HclustBenchmarkTest {
         for (AgglomerativeClustering alg : algorithms) {
             NanoBench.create().measurements(2).cpuAndMemory().measure(
                     alg.getName() + " single link - " + dataset.getName(),
-                    new HclustBenchmark().singleLinkage(alg, dataset)
+                    new ClusteringBenchmark().singleLinkage(alg, dataset)
             );
         }
     }
@@ -55,7 +71,7 @@ public class HclustBenchmarkTest {
         for (AgglomerativeClustering alg : algorithms) {
             NanoBench.create().cpuAndMemory().measurements(2).measure(
                     alg.getName() + " complete link - " + dataset.getName(),
-                    new HclustBenchmark().completeLinkage(alg, dataset)
+                    new ClusteringBenchmark().completeLinkage(alg, dataset)
             );
         }
     }
@@ -66,12 +82,12 @@ public class HclustBenchmarkTest {
         Dataset<? extends Instance> dataset = FakeDatasets.kumarData();
         //use one algorithm as reference one
         AgglomerativeClustering alg1 = new HC();
-        Container ref = new HclustBenchmark().completeLinkage(alg1, dataset);
+        Container ref = new ClusteringBenchmark().completeLinkage(alg1, dataset);
         ref.run();
         Container other;
 
         AgglomerativeClustering alg2 = new HCLW();
-        other = new HclustBenchmark().completeLinkage(alg2, dataset);
+        other = new ClusteringBenchmark().completeLinkage(alg2, dataset);
         other.run();
         System.out.println("comparing " + algorithms[0].getName() + " vs " + alg2.getName());
         assertEquals(true, ref.equals(other));
@@ -110,14 +126,14 @@ public class HclustBenchmarkTest {
 
     private void compareTreeResults(Dataset<? extends Instance> dataset, String linkage, AgglomerativeClustering[] algs) {
         //use one algorithm as reference one
-        Container ref = new HclustBenchmark().hclust(algs[0], dataset, linkage);
+        Container ref = new ClusteringBenchmark().hclust(algs[0], dataset, linkage);
         ref.run();
         Container other;
 
         //compare result to others
         for (int i = 1; i < algs.length; i++) {
             AgglomerativeClustering algorithm = algs[i];
-            other = new HclustBenchmark().hclust(algorithm, dataset, linkage);
+            other = new ClusteringBenchmark().hclust(algorithm, dataset, linkage);
             other.run();
             System.out.println("comparing " + algs[0].getName() + " vs " + algorithm.getName() + " linkage: " + linkage);
             assertEquals(true, ref.equals(other));

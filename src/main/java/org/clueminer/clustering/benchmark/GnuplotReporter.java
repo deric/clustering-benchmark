@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-2016 clueminer.org
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.clueminer.clustering.benchmark;
 
 import com.google.common.collect.ObjectArrays;
@@ -35,7 +51,6 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         String cpu2Path = dataDir + File.separatorChar + "cpu2" + suffix + ".gpt";
         String tpsPath = dataDir + File.separatorChar + "tps" + suffix + ".gpt";
 
-
         writePlotScript(new File(memPath),
                 plotComplexity(8, "memory (kB)", 10, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(cpuPath),
@@ -70,7 +85,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
 
     /**
      *
-     * @param file to write Gnuplot script
+     * @param file     to write Gnuplot script
      * @param dataFile
      * @param labelPos column of label which is used for data rows in chart
      * @param type
@@ -180,11 +195,11 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
 
     /**
      *
-     * @param plots plot names without extension
-     * @param dir base dir
+     * @param plots      plot names without extension
+     * @param dir        base dir
      * @param gnuplotDir directory with gnuplot file
      * @param term
-     * @param ext extentions of output format
+     * @param ext        extentions of output format
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      * @throws IOException

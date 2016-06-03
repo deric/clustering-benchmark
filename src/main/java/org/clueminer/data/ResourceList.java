@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 clueminer.org
+ * Copyright (C) 2011-2016 clueminer.org
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,12 +108,10 @@ public class ResourceList {
         final File file = new File(element);
         if (file.isDirectory()) {
             retval.addAll(getResourcesFromDirectory(file, pattern));
+        } else if (file.exists()) {
+            retval.addAll(getResourcesFromJarFile(file, pattern));
         } else {
-            if (file.exists()) {
-                retval.addAll(getResourcesFromJarFile(file, pattern));
-            } else {
-                System.err.println("can't open file: " + file);
-            }
+            System.err.println("can't open file: " + file);
         }
         return retval;
     }

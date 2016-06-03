@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2015 clueminer.org
+ * Copyright (C) 2011-2016 clueminer.org
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,11 +72,11 @@ public class ConsensusRun implements Runnable {
         table = Tables.newCustomTable(
                 Maps.<String, Map<String, Double>>newHashMap(),
                 new Supplier<Map<String, Double>>() {
-                    @Override
-                    public Map<String, Double> get() {
-                        return Maps.newHashMap();
-                    }
-                });
+            @Override
+            public Map<String, Double> get() {
+                return Maps.newHashMap();
+            }
+        });
     }
 
     @Override
@@ -111,11 +111,9 @@ public class ConsensusRun implements Runnable {
             }
             if (params.k > 0) {
                 props.putInt("k", params.k);
-            } else {
-                if (!props.containsKey("k") && props.getBoolean(KMeansBagging.FIXED_K, false)) {
-                    //use "correct" number of clusters if k not specified
-                    props.putInt("k", dataset.getClasses().size());
-                }
+            } else if (!props.containsKey("k") && props.getBoolean(KMeansBagging.FIXED_K, false)) {
+                //use "correct" number of clusters if k not specified
+                props.putInt("k", dataset.getClasses().size());
             }
             double score;
             System.out.println(props.toString());

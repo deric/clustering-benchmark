@@ -1,8 +1,25 @@
+/*
+ * Copyright (C) 2011-2016 clueminer.org
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.clueminer.clustering.benchmark;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import org.clueminer.clustering.benchmark.chameleon2.Cham2Bench;
 import org.clueminer.clustering.benchmark.consensus.ConsensusExp;
 import org.clueminer.clustering.benchmark.cutoff.CutoffExp;
 import org.clueminer.clustering.benchmark.exp.Data;
@@ -34,6 +51,7 @@ public class Main {
         map.put("consensus", new ConsensusExp());
         map.put("cutoff", new CutoffExp());
         map.put("partition", new PartitionExp());
+        map.put("chameleon2", new Cham2Bench());
     }
 
     /**

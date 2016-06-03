@@ -18,10 +18,12 @@ package org.clueminer.clustering.benchmark;
 
 import java.util.Random;
 import org.clueminer.clustering.api.AgglomerativeClustering;
+import org.clueminer.clustering.api.ClusteringAlgorithm;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.dataset.impl.ArrayDataset;
 import org.clueminer.report.NanoBench;
+import org.clueminer.utils.Props;
 import org.openide.util.Exceptions;
 
 /**
@@ -32,10 +34,10 @@ public class Experiment implements Runnable {
 
     protected final Random rand;
     protected final BenchParams params;
-    protected final AgglomerativeClustering[] algorithms;
+    protected final ClusteringAlgorithm[] algorithms;
     protected final String results;
 
-    public Experiment(BenchParams params, String results, AgglomerativeClustering[] algorithms) {
+    public Experiment(BenchParams params, String results, ClusteringAlgorithm[] algorithms) {
         rand = new Random();
         this.params = params;
         this.results = results;
@@ -48,19 +50,30 @@ public class Experiment implements Runnable {
 
         String[] names = new String[algorithms.length];
         int j = 0;
-        for (AgglomerativeClustering alg : algorithms) {
+        for (ClusteringAlgorithm alg : algorithms) {
             names[j++] = alg.getName();
         }
 
         GnuplotReporter reporter = new GnuplotReporter(results, new String[]{"algorithm", "linkage", "n"}, names, params.nSmall + "-" + params.n);
         System.out.println("increment = " + inc);
+        ClusteringBenchmark bench = new ClusteringBenchmark();
+        Container container;
+        AgglomerativeClustering aggl;
         for (int i = params.nSmall; i <= params.n; i += inc) {
             Dataset<? extends Instance> dataset = generateData(i, params.dimension);
-            for (AgglomerativeClustering alg : algorithms) {
+            for (ClusteringAlgorithm alg : algorithms) {
                 String[] opts = new String[]{alg.getName(), params.linkage, String.valueOf(dataset.size())};
+
+                if (alg instanceof AgglomerativeClustering) {
+                    aggl = (AgglomerativeClustering) alg;
+                    container = bench.hclust(aggl, dataset, params.linkage);
+                } else {
+                    container = bench.cluster(alg, dataset, new Props());
+                }
+
                 NanoBench.create().measurements(params.repeat).collect(reporter, opts).measure(
-                        alg.getName() + " - " + params.linkage + " - " + dataset.size(),
-                        new HclustBenchmark().hclust(alg, dataset, params.linkage)
+                        alg.getName() + " - " + dataset.size(),
+                        container
                 );
                 // Get the Java runtime
                 Runtime runtime = Runtime.getRuntime();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 clueminer.org
+ * Copyright (C) 2011-2016 clueminer.org
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,10 +30,10 @@ import org.clueminer.clustering.api.factory.EvaluationFactory;
 import static org.clueminer.clustering.benchmark.Bench.safeName;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
-import org.clueminer.dataset.benchmark.ConsoleDump;
 import org.clueminer.dataset.benchmark.GnuplotMO;
 import org.clueminer.dataset.benchmark.ResultsCollector;
 import org.clueminer.evolution.mo.MoEvolution;
+import org.clueminer.evolution.utils.ConsoleDump;
 import org.openide.util.Exceptions;
 
 /**
@@ -125,10 +125,10 @@ public class NsgaExp implements Runnable {
         table = Tables.newCustomTable(
                 Maps.<String, Map<String, Double>>newHashMap(),
                 new Supplier<Map<String, Double>>() {
-                    @Override
-                    public Map<String, Double> get() {
-                        return Maps.newHashMap();
-                    }
-                });
+            @Override
+            public Map<String, Double> get() {
+                return Maps.newHashMap();
+            }
+        });
     }
 }
