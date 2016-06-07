@@ -7,7 +7,7 @@
 % Number of instances : 193
 %
 
-@RELATION Glass
+@RELATION glass
 
 @ATTRIBUTE	'RI'	REAL
 @ATTRIBUTE	'Na'	REAL

@@ -50,7 +50,7 @@
 @attribute Course INTEGER
 @attribute Summer_or_regular_semester {1,2}
 @attribute Class_size INTEGER
-@attribute Class_attribute {1,2,3}
+@attribute Class {1,2,3}
 
 @data
 1,23,3,1,19,3

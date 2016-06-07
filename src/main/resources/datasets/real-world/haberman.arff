@@ -45,7 +45,7 @@
 @attribute Age_of_patient_at_time_of_operation INTEGER
 @attribute Patients_year_of_operation {58,59,60,61,62,63,64,65,66,67,68,69}
 @attribute Number_of_positive_axillary_nodes_detected INTEGER
-@attribute Survival_status {1,2}
+@attribute class {1,2}
 
 @data
 30,64,1,1

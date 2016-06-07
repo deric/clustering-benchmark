@@ -6,7 +6,7 @@
 % Deleted "vendor" attribute to make data consistent with with what we
 % used in the data mining book.
 %
-@relation 'cpu'
+@relation cpu
 @attribute MYCT numeric
 @attribute MMIN numeric
 @attribute MMAX numeric
