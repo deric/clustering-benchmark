@@ -27,6 +27,7 @@ import org.clueminer.clustering.api.Clustering;
 import org.clueminer.clustering.api.ClusteringFactory;
 import org.clueminer.clustering.api.CutoffStrategy;
 import org.clueminer.clustering.api.HierarchicalResult;
+import org.clueminer.clustering.api.ScoreException;
 import org.clueminer.clustering.api.factory.CutoffStrategyFactory;
 import org.clueminer.clustering.api.factory.EvaluationFactory;
 import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
@@ -113,7 +114,12 @@ public class FirstJumpOptimization implements Runnable {
             if (c.getEvaluationTable() != null) {
                 score = c.getEvaluationTable().getScore(eval);
             } else {
-                score = eval.score(c);
+                try {
+                    score = eval.score(c);
+                } catch (ScoreException ex) {
+                    score = Double.NaN;
+                    Exceptions.printStackTrace(ex);
+                }
             }
             sum += score;
             cnt++;

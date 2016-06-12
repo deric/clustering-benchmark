@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.clustering.api.Cluster;
 import org.clueminer.clustering.api.ClusterEvaluation;
@@ -30,6 +32,7 @@ import org.clueminer.clustering.api.ClusteringFactory;
 import org.clueminer.clustering.api.CutoffStrategy;
 import org.clueminer.clustering.api.HierarchicalResult;
 import org.clueminer.clustering.api.InternalEvaluator;
+import org.clueminer.clustering.api.ScoreException;
 import org.clueminer.clustering.api.factory.CutoffStrategyFactory;
 import org.clueminer.clustering.api.factory.EvaluationFactory;
 import org.clueminer.clustering.api.factory.InternalEvaluatorFactory;
@@ -53,7 +56,8 @@ public class CutoffComparison implements Runnable {
     private final ArrayList<Dataset<? extends Instance>> datasets;
     private Map<String, Average> averages;
     private LinkedList<ClusterEvaluation> externalEvals;
-    CSVWriter csv;
+    private CSVWriter csv;
+    private static final Logger LOGGER = Logger.getLogger(CutoffComparison.class.getName());
 
     public CutoffComparison(CutoffParams params, String benchmarkFolder, ArrayList<Dataset<? extends Instance>> datasets) {
         this.params = params;
@@ -145,7 +149,12 @@ public class CutoffComparison implements Runnable {
             if (c.getEvaluationTable() != null) {
                 score = c.getEvaluationTable().getScore(eval);
             } else {
-                score = eval.score(c);
+                try {
+                    score = eval.score(c);
+                } catch (ScoreException ex) {
+                    score = Double.NaN;
+                    LOGGER.log(Level.WARNING, "failed to compute score {0}: {1}", new Object[]{eval.getName(), ex.getMessage()});
+                }
             }
             row[i] = String.valueOf(score);
             i++;
@@ -221,7 +230,12 @@ public class CutoffComparison implements Runnable {
                 if (c.getEvaluationTable() != null) {
                     score = c.getEvaluationTable().getScore(eval);
                 } else {
-                    score = eval.score(c);
+                    try {
+                        score = eval.score(c);
+                    } catch (ScoreException ex) {
+                        score = Double.NaN;
+                        LOGGER.log(Level.WARNING, "failed to compute score {0}: {1}", new Object[]{eval.getName(), ex.getMessage()});
+                    }
                 }
                 sum.put(eval.getName(), sum.get(eval.getName()) + score);
                 cnt.put(eval.getName(), cnt.get(eval.getName()) + 1);
