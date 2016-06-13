@@ -39,7 +39,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
     private final File dataFile;
     private final LinkedList<String> plots;
 
-    public GnuplotReporter(String folder, String[] opts, String[] algorithms, String suffix) {
+    public GnuplotReporter(String folder, String[] opts, String[] algorithms, String suffix, int xCol) {
         this.dataDir = folder + File.separatorChar + "data";
         mkdir(dataDir);
         this.dataFile = new File(dataDir + File.separatorChar + "results-" + suffix + ".csv");
@@ -52,13 +52,13 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         String tpsPath = dataDir + File.separatorChar + "tps" + suffix + ".gpt";
 
         writePlotScript(new File(memPath),
-                plotComplexity(8, "memory (kB)", 10, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
+                plotComplexity(8, "memory (kB)", xCol, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(cpuPath),
-                plotCpu(8, "CPU", 10, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
+                plotCpu(8, "CPU", xCol, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(cpu2Path),
-                plotComplexity(8, "CPU time", 10, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
+                plotComplexity(8, "CPU time", xCol, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(tpsPath),
-                plotComplexity(8, "tps", 10, 5, dataFile.getName(), algorithms, "Transactuion per second - " + opts[1], true));
+                plotComplexity(8, "tps", xCol, 5, dataFile.getName(), algorithms, "Transactuion per second - " + opts[1], true));
 
         writeBashScript(folder);
     }

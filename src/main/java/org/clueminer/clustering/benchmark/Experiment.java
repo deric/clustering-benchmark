@@ -61,7 +61,9 @@ public class Experiment<E extends Instance> implements Runnable {
             names[j++] = alg.getName();
         }
 
-        GnuplotReporter reporter = new GnuplotReporter(results, new String[]{"algorithm", "linkage", "n"}, names, params.nSmall + "-" + params.n);
+        GnuplotReporter reporter = new GnuplotReporter(results,
+                new String[]{"algorithm", "linkage", "n"}, names, params.nSmall + "-" + params.n,
+                10);
         System.out.println("increment = " + inc);
         ClusteringBenchmark bench = new ClusteringBenchmark();
         Container container;

@@ -52,22 +52,27 @@ public class ParamExperiment<E extends Instance> extends Experiment<E> {
             names[j++] = alg.get(AlgParams.ALG);
         }
 
+        //json props must be last column (in order to avoid issues with gnuplot parsing commas in json)
         GnuplotReporter reporter = new GnuplotReporter(results,
-                new String[]{"algorithm", "config", "n"},
-                names, params.nSmall + "-" + params.n);
+                new String[]{"algorithm", "n", "config"},
+                names, params.nSmall + "-" + params.n, 9);
         System.out.println("increment = " + inc);
         ClusteringBenchmark bench = new ClusteringBenchmark();
         Container container;
         for (int i = params.nSmall; i <= params.n; i += inc) {
             Dataset<E> dataset = generateData(i, params.dimension);
             for (Props props : configs) {
-                String[] opts = new String[]{props.get(AlgParams.ALG), props.toJson(), String.valueOf(dataset.size())};
-
-                container = bench.cluster(dataset, props);
-                NanoBench.create().measurements(params.repeat).collect(reporter, opts).measure(
-                        props.get(AlgParams.ALG) + " - " + dataset.size(),
-                        container
-                );
+                System.out.println("running: " + props.get(AlgParams.ALG));
+                String[] opts = new String[]{props.get(AlgParams.ALG), String.valueOf(dataset.size()), props.toJson()};
+                try {
+                    container = bench.cluster(dataset, props);
+                    NanoBench.create().measurements(params.repeat).collect(reporter, opts).measure(
+                            props.get(AlgParams.ALG) + " - " + dataset.size(),
+                            container
+                    );
+                } catch (Exception ex) {
+                    Exceptions.printStackTrace(ex);
+                }
                 // Get the Java runtime
                 Runtime runtime = Runtime.getRuntime();
                 // Run the garbage collector

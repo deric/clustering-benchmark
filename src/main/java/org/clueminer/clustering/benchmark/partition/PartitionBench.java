@@ -59,7 +59,8 @@ public class PartitionBench implements Runnable {
             names[j++] = alg.getName();
         }
 
-        GnuplotReporter reporter = new GnuplotReporter(results, new String[]{"algorithm", "edges", "n"}, names, params.nSmall + "-" + params.n);
+        GnuplotReporter reporter = new GnuplotReporter(results,
+                new String[]{"algorithm", "edges", "n"}, names, params.nSmall + "-" + params.n, 10);
         System.out.println("increment = " + inc);
         KNNGraphBuilder knn = new KNNGraphBuilder();
         Props pref = new Props();

@@ -40,7 +40,7 @@ public class Cham2Bench extends Hclust {
         BenchParams params = parseArguments(args);
         setupLogging(params);
 
-        benchmarkFolder = params.home + File.separatorChar + "hclust-par2";
+        benchmarkFolder = params.home + File.separatorChar + "chameleon2";
         ensureFolder(benchmarkFolder);
 
         System.out.println("# n = " + params.n);
@@ -49,8 +49,20 @@ public class Cham2Bench extends Hclust {
         Props ch2 = new Props();
         ch2.put(AlgParams.ALG, "Chameleon");
 
+        Props hc = new Props();
+        hc.put(AlgParams.ALG, "HC-LW");
+        hc.put(AlgParams.LINKAGE, "Single Linkage");
+
+        Props dbscan = new Props();
+        dbscan.put(AlgParams.ALG, "DBSCAN");
+
+        Props km = new Props();
+        km.put(AlgParams.ALG, "k-means");
+
         Props[] algorithms = new Props[]{
-            ch2
+            ch2,
+            hc,
+            dbscan, km
         };
         ParamExperiment exp = new ParamExperiment(params, benchmarkFolder, algorithms);
         ExecutorService execService = Executors.newFixedThreadPool(1);

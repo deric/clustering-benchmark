@@ -61,11 +61,11 @@ public class Container<E extends Instance> implements Runnable {
 
     @Override
     public void run() {
+        System.out.println(params.toJson());
         if (algorithm instanceof AgglomerativeClustering) {
             this.result = hierarchical((AgglomerativeClustering) algorithm, dataset, params);
         } else {
             this.clustering = cluster(algorithm, dataset, params);
-            System.out.println(params.toJson());
         }
     }
 
