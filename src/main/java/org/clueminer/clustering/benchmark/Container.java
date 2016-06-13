@@ -17,6 +17,7 @@
 package org.clueminer.clustering.benchmark;
 
 import java.util.logging.Logger;
+import org.clueminer.clustering.ClusteringExecutorCached;
 import org.clueminer.clustering.TreeDiff;
 import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.clustering.api.AlgParams;
@@ -41,17 +42,20 @@ public class Container<E extends Instance> implements Runnable {
     private final Dataset<E> dataset;
     private Props params;
     private static final Logger logger = Logger.getLogger(Container.class.getName());
+    private ClusteringExecutorCached executor;
 
     public Container(ClusteringAlgorithm algorithm, Dataset<E> dataset) {
         this.algorithm = algorithm;
         this.dataset = dataset;
         this.params = new Props();
+        this.executor = new ClusteringExecutorCached();
     }
 
     public Container(ClusteringAlgorithm algorithm, Dataset<E> dataset, Props params) {
         this.algorithm = algorithm;
         this.dataset = dataset;
         this.params = params;
+        this.executor = new ClusteringExecutorCached();
     }
 
     public HierarchicalResult hierarchical(AgglomerativeClustering algorithm, Dataset<E> dataset, Props params) {
@@ -61,16 +65,11 @@ public class Container<E extends Instance> implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(params.toJson());
-        if (algorithm instanceof AgglomerativeClustering) {
-            this.result = hierarchical((AgglomerativeClustering) algorithm, dataset, params);
-        } else {
-            this.clustering = cluster(algorithm, dataset, params);
-        }
+        this.clustering = executor.clusterRows(dataset, params);
     }
 
     public Clustering cluster(ClusteringAlgorithm algorithm, Dataset<E> dataset, Props params) {
-        return algorithm.cluster(dataset, params);
+        return executor.clusterRows(dataset, params);
     }
 
     public boolean equals(Container other) {

@@ -62,7 +62,6 @@ public class ParamExperiment<E extends Instance> extends Experiment<E> {
         for (int i = params.nSmall; i <= params.n; i += inc) {
             Dataset<E> dataset = generateData(i, params.dimension);
             for (Props props : configs) {
-                System.out.println("running: " + props.get(AlgParams.ALG));
                 String[] opts = new String[]{props.get(AlgParams.ALG), String.valueOf(dataset.size()), props.toJson()};
                 try {
                     container = bench.cluster(dataset, props);

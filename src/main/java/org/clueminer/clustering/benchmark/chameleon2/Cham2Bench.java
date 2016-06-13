@@ -50,8 +50,8 @@ public class Cham2Bench extends Hclust {
         ch2.put(AlgParams.ALG, "Chameleon");
 
         Props hc = new Props();
-        hc.put(AlgParams.ALG, "HC-LW");
-        hc.put(AlgParams.LINKAGE, "Single Linkage");
+        hc.put(AlgParams.ALG, "HC-LW(ms)");
+        hc.put(AlgParams.LINKAGE, "Single");
 
         Props dbscan = new Props();
         dbscan.put(AlgParams.ALG, "DBSCAN");
