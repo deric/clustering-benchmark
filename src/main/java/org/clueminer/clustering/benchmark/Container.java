@@ -38,24 +38,23 @@ public class Container<E extends Instance> implements Runnable {
 
     private HierarchicalResult result;
     private Clustering clustering;
-    private final ClusteringAlgorithm algorithm;
     private final Dataset<E> dataset;
     private Props params;
     private static final Logger logger = Logger.getLogger(Container.class.getName());
     private ClusteringExecutorCached executor;
 
     public Container(ClusteringAlgorithm algorithm, Dataset<E> dataset) {
-        this.algorithm = algorithm;
+        this.executor = new ClusteringExecutorCached();
+        executor.setAlgorithm(algorithm);
         this.dataset = dataset;
         this.params = new Props();
-        this.executor = new ClusteringExecutorCached();
     }
 
     public Container(ClusteringAlgorithm algorithm, Dataset<E> dataset, Props params) {
-        this.algorithm = algorithm;
+        this.executor = new ClusteringExecutorCached();
+        executor.setAlgorithm(algorithm);
         this.dataset = dataset;
         this.params = params;
-        this.executor = new ClusteringExecutorCached();
     }
 
     public HierarchicalResult hierarchical(AgglomerativeClustering algorithm, Dataset<E> dataset, Props params) {
@@ -65,7 +64,11 @@ public class Container<E extends Instance> implements Runnable {
 
     @Override
     public void run() {
-        this.clustering = executor.clusterRows(dataset, params);
+        if (executor.getAlgorithm() instanceof AgglomerativeClustering) {
+            this.result = executor.hclustRows(dataset, params);
+        } else {
+            this.clustering = executor.clusterRows(dataset, params);
+        }
     }
 
     public Clustering cluster(ClusteringAlgorithm algorithm, Dataset<E> dataset, Props params) {
