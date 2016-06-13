@@ -50,6 +50,7 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
         String cpuPath = dataDir + File.separatorChar + "cpu" + suffix + ".gpt";
         String cpu2Path = dataDir + File.separatorChar + "cpu2" + suffix + ".gpt";
         String tpsPath = dataDir + File.separatorChar + "tps" + suffix + ".gpt";
+        String timePath = dataDir + File.separatorChar + "time" + suffix + ".gpt";
 
         writePlotScript(new File(memPath),
                 plotComplexity(8, "memory (kB)", xCol, 7, dataFile.getName(), algorithms, "Memory usage of hierarchical clustering algorithms - " + opts[1], false));
@@ -59,6 +60,9 @@ public class GnuplotReporter extends GnuplotHelper implements Reporter {
                 plotComplexity(8, "CPU time", xCol, 2, dataFile.getName(), algorithms, "CPU usage of hierarchical clustering algorithms - " + opts[1], false));
         writePlotScript(new File(tpsPath),
                 plotComplexity(8, "tps", xCol, 5, dataFile.getName(), algorithms, "Transactuion per second - " + opts[1], true));
+
+        writePlotScript(new File(timePath),
+                plotComplexity(8, "time", xCol, 4, dataFile.getName(), algorithms, "Execution time - " + opts[1], true));
 
         writeBashScript(folder);
     }
