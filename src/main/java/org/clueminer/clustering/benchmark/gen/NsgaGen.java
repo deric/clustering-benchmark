@@ -28,6 +28,7 @@ import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.printUsage;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
+import org.clueminer.log.ClmLog;
 
 /**
  *
@@ -52,7 +53,7 @@ public class NsgaGen extends Bench {
         } else {
             loadDatasets();
         }
-        setupLogging(params);
+        ClmLog.setup(params.log);
 
         int i = 0;
         for (Map.Entry<String, Map.Entry<Dataset<? extends Instance>, Integer>> e : availableDatasets.entrySet()) {

@@ -29,6 +29,7 @@ import org.clueminer.clustering.benchmark.evolve.EvolveExp;
 import org.clueminer.clustering.benchmark.evolve.EvolveParams;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
+import org.clueminer.log.ClmLog;
 
 /**
  *
@@ -53,7 +54,7 @@ public class EvolveScores extends Bench {
         } else {
             loadDatasets();
         }
-        setupLogging(params);
+        ClmLog.setup(params.log);
         System.out.println("loaded dataset");
         int i = 0;
         for (Map.Entry<String, Map.Entry<Dataset<? extends Instance>, Integer>> e : availableDatasets.entrySet()) {

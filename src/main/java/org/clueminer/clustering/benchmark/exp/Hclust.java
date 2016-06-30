@@ -28,6 +28,7 @@ import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.clustering.benchmark.Bench;
 import org.clueminer.clustering.benchmark.BenchParams;
 import org.clueminer.clustering.benchmark.Experiment;
+import org.clueminer.log.ClmLog;
 
 /**
  *
@@ -43,7 +44,7 @@ public class Hclust extends Bench {
     @Override
     public void main(String[] args) {
         BenchParams params = parseArguments(args);
-        setupLogging(params);
+        ClmLog.setup(params.log);
 
         benchmarkFolder = params.home + File.separatorChar + "benchmark" + File.separatorChar + "hclust";
         ensureFolder(benchmarkFolder);

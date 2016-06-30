@@ -22,6 +22,7 @@ import java.util.concurrent.Executors;
 import org.clueminer.clustering.benchmark.Bench;
 import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.printUsage;
+import org.clueminer.log.ClmLog;
 
 /**
  *
@@ -41,7 +42,7 @@ public class ConsensusExp extends Bench {
     @Override
     public void main(String[] args) {
         ConsensusParams params = parseArguments(args);
-        setupLogging(params);
+        ClmLog.setup(params.log);
 
         loadBenchArtificial();
         System.out.println("dataset: " + params.dataset);

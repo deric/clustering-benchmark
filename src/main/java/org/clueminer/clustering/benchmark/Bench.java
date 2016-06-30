@@ -21,17 +21,11 @@ import com.beust.jcommander.ParameterException;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Formatter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import org.clueminer.data.DataLoader;
 import org.clueminer.dataset.api.DataProvider;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.dataset.benchmark.DatasetFixture;
-import org.clueminer.log.ClmFormatter;
 
 /**
  *
@@ -105,56 +99,6 @@ public abstract class Bench {
 
     public static String safeName(String name) {
         return name.toLowerCase().replace(" ", "_");
-    }
-
-    public void setupLogging(AbsParams params) {
-        Logger log = LogManager.getLogManager().getLogger("");
-        Formatter formater = new ClmFormatter();
-        Level level;
-
-        switch (params.log.toUpperCase()) {
-            case "INFO":
-                level = Level.INFO;
-                break;
-            case "SEVERE":
-                level = Level.SEVERE;
-                break;
-            case "WARNING":
-                level = Level.WARNING;
-                break;
-            case "ALL":
-                level = Level.ALL;
-                break;
-            case "FINE":
-                level = Level.FINE;
-                break;
-            case "FINER":
-                level = Level.FINER;
-                break;
-            case "FINEST":
-                level = Level.FINEST;
-                break;
-            default:
-                throw new RuntimeException("log level " + log + " is not supported");
-        }
-        setupHandlers(log, level, formater);
-
-        //remove date line from logger
-        log.setUseParentHandlers(false);
-    }
-
-    private void setupHandlers(Logger logger, Level level, Formatter formater) {
-        for (Handler handler : logger.getHandlers()) {
-            handler.setLevel(level);
-            handler.setFormatter(formater);
-        }
-        Logger parentLogger = logger.getParent();
-        if (null != parentLogger) {
-            for (Handler handler : parentLogger.getHandlers()) {
-                handler.setLevel(level);
-                handler.setFormatter(formater);
-            }
-        }
     }
 
 }

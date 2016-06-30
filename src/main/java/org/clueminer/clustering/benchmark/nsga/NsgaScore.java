@@ -29,6 +29,7 @@ import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import static org.clueminer.clustering.benchmark.Bench.printUsage;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
+import org.clueminer.log.ClmLog;
 
 /**
  *
@@ -58,7 +59,7 @@ public class NsgaScore extends Bench {
             loadDatasets();
         }
         System.out.println("loaded dataset");
-        setupLogging(params);
+        ClmLog.setup(params.log);
 
         int i = 0;
         for (Map.Entry<String, Map.Entry<Dataset<? extends Instance>, Integer>> e : availableDatasets.entrySet()) {

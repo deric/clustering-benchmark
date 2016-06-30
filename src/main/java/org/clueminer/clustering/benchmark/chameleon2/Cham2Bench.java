@@ -24,6 +24,7 @@ import static org.clueminer.clustering.benchmark.Bench.ensureFolder;
 import org.clueminer.clustering.benchmark.BenchParams;
 import org.clueminer.clustering.benchmark.ParamExperiment;
 import org.clueminer.clustering.benchmark.exp.Hclust;
+import org.clueminer.log.ClmLog;
 import org.clueminer.utils.Props;
 
 /**
@@ -38,7 +39,7 @@ public class Cham2Bench extends Hclust {
     @Override
     public void main(String[] args) {
         BenchParams params = parseArguments(args);
-        setupLogging(params);
+        ClmLog.setup(params.log);
 
         benchmarkFolder = params.home + File.separatorChar + "chameleon2";
         ensureFolder(benchmarkFolder);
