@@ -4,7 +4,7 @@
 % Karypis, George, Eui-Hong Han, and Vipin Kumar.
 % "Chameleon: Hierarchical clustering using dynamic modeling." Computer 32.8 (1999): 68-75.
 %
-@RELATION cluto-t8_8k
+@RELATION cluto-t8-8k
 %
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL
