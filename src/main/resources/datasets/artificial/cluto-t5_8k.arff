@@ -1,7 +1,7 @@
 % source: G. Karypis, "CLUTO A Clustering Toolkit," Dept. of Computer Science, University of Minnesota,
 % Tech. Rep. 02-017, 2002, available at http://www.cs.umn.edu/~cluto
 %
-@RELATION cluto-t5.8k
+@RELATION cluto-t5_8k
 %
 @ATTRIBUTE x REAL
 @ATTRIBUTE y REAL
