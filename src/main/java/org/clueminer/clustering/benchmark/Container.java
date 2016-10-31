@@ -16,7 +16,6 @@
  */
 package org.clueminer.clustering.benchmark;
 
-import java.util.logging.Logger;
 import org.clueminer.clustering.ClusteringExecutorCached;
 import org.clueminer.clustering.TreeDiff;
 import org.clueminer.clustering.api.AgglomerativeClustering;
@@ -28,6 +27,8 @@ import org.clueminer.clustering.api.HierarchicalResult;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.utils.Props;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ public class Container<E extends Instance> implements Runnable {
     private Clustering clustering;
     private final Dataset<E> dataset;
     private Props params;
-    private static final Logger logger = Logger.getLogger(Container.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(Container.class);
     private ClusteringExecutorCached executor;
 
     public Container(ClusteringAlgorithm algorithm, Dataset<E> dataset) {

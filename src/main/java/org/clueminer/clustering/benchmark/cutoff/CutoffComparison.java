@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.clustering.api.Cluster;
 import org.clueminer.clustering.api.ClusterEvaluation;
@@ -44,6 +42,7 @@ import org.clueminer.dataset.api.Instance;
 import org.clueminer.eval.hclust.HillClimbCutoff;
 import org.clueminer.utils.Props;
 import org.openide.util.Exceptions;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -57,7 +56,7 @@ public class CutoffComparison implements Runnable {
     private Map<String, Average> averages;
     private LinkedList<ClusterEvaluation> externalEvals;
     private CSVWriter csv;
-    private static final Logger LOGGER = Logger.getLogger(CutoffComparison.class.getName());
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CutoffComparison.class);
 
     public CutoffComparison(CutoffParams params, String benchmarkFolder, ArrayList<Dataset<? extends Instance>> datasets) {
         this.params = params;
@@ -153,7 +152,7 @@ public class CutoffComparison implements Runnable {
                     score = eval.score(c);
                 } catch (ScoreException ex) {
                     score = Double.NaN;
-                    LOGGER.log(Level.WARNING, "failed to compute score {0}: {1}", new Object[]{eval.getName(), ex.getMessage()});
+                    LOG.info("failed to compute score {}: {}", eval.getName(), ex.getMessage());
                 }
             }
             row[i] = String.valueOf(score);
@@ -234,7 +233,7 @@ public class CutoffComparison implements Runnable {
                         score = eval.score(c);
                     } catch (ScoreException ex) {
                         score = Double.NaN;
-                        LOGGER.log(Level.WARNING, "failed to compute score {0}: {1}", new Object[]{eval.getName(), ex.getMessage()});
+                        LOG.info("failed to compute score {}: {}", eval.getName(), ex.getMessage());
                     }
                 }
                 sum.put(eval.getName(), sum.get(eval.getName()) + score);

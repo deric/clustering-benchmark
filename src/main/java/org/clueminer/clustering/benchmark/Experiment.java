@@ -25,6 +25,8 @@ import org.clueminer.dataset.impl.ArrayDataset;
 import org.clueminer.report.NanoBench;
 import org.clueminer.utils.Props;
 import org.openide.util.Exceptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -37,6 +39,7 @@ public class Experiment<E extends Instance> implements Runnable {
     protected final BenchParams params;
     private ClusteringAlgorithm[] algorithms;
     protected final String results;
+    private static final Logger LOG = LoggerFactory.getLogger(Experiment.class);
 
     public Experiment(BenchParams params, String results) {
         rand = new Random();
@@ -64,7 +67,7 @@ public class Experiment<E extends Instance> implements Runnable {
         GnuplotReporter reporter = new GnuplotReporter(results,
                 new String[]{"algorithm", "linkage", "n"}, names, params.nSmall + "-" + params.n,
                 10);
-        System.out.println("increment = " + inc);
+        LOG.info("increment = {}", inc);
         ClusteringBenchmark bench = new ClusteringBenchmark();
         Container container;
         AgglomerativeClustering aggl;
@@ -105,8 +108,8 @@ public class Experiment<E extends Instance> implements Runnable {
      * @param dim
      * @return
      */
-    protected Dataset<E> generateData(int size, int dim) {
-        System.out.println("generating data: " + size + " x " + dim);
+    public Dataset<E> generateData(int size, int dim) {
+        LOG.info("generating data: {}x{}", size, dim);
         Dataset<E> dataset = new ArrayDataset<>(size, dim);
         for (int i = 0; i < dim; i++) {
             dataset.attributeBuilder().create("attr-" + i, "NUMERIC");

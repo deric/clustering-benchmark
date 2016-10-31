@@ -23,8 +23,6 @@ import com.google.common.collect.Tables;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.clueminer.clustering.api.ClusterEvaluation;
 import org.clueminer.clustering.api.factory.EvaluationFactory;
 import static org.clueminer.clustering.benchmark.Bench.safeName;
@@ -35,6 +33,8 @@ import org.clueminer.dataset.benchmark.ResultsCollector;
 import org.clueminer.evolution.mo.MoEvolution;
 import org.clueminer.evolution.utils.ConsoleDump;
 import org.openide.util.Exceptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +49,7 @@ public class NsgaExp implements Runnable {
     private HashMap<String, Map.Entry<Dataset<? extends Instance>, Integer>> datasets;
     //table for keeping results from experiments
     private Table<String, String, Double> table;
-    private static final Logger logger = Logger.getLogger(NsgaExp.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(NsgaExp.class);
 
     public NsgaExp(NsgaParams params, String benchmarkFolder, ClusterEvaluation[] scores, HashMap<String, Map.Entry<Dataset<? extends Instance>, Integer>> availableDatasets) {
         this.params = params;
@@ -82,12 +82,12 @@ public class NsgaExp implements Runnable {
             evolution.addMOEvolutionListener(rc);
 
             String name;
-            logger.log(Level.INFO, "datasets size: {0}", datasets.size());
+            LOG.info("datasets size: {}", datasets.size());
             for (Map.Entry<String, Map.Entry<Dataset<? extends Instance>, Integer>> e : datasets.entrySet()) {
                 Dataset<? extends Instance> d = e.getValue().getKey();
                 name = safeName(d.getName());
                 String csvRes = benchmarkFolder + File.separatorChar + name + File.separatorChar + "_" + name + ".csv";
-                logger.log(Level.INFO, "dataset: {0} size: {1} num attr: {2}", new Object[]{name, d.size(), d.attributeCount()});
+                LOG.info("dataset: {} size: {} num attr: {}", name, d.size(), d.attributeCount());
                 //ensureFolder(benchmarkFolder + File.separatorChar + name);
 
                 gw.setCurrentDir(benchmarkFolder, name);
@@ -106,12 +106,12 @@ public class NsgaExp implements Runnable {
                         evolution.addObjective(c2);
                         //run!
                         for (int k = 0; k < params.repeat; k++) {
-                            logger.log(Level.INFO, "run {0}: {1} & {2}", new Object[]{k, c1.getName(), c2.getName()});
+                            LOG.info("run {}: {} & {}", k, c1.getName(), c2.getName());
                             evolution.run();
                             rc.writeToCsv(csvRes);
                         }
                         evolution.fireFinishedBatch();
-                        logger.log(Level.INFO, "finished {0} & {1}", new Object[]{c1.getName(), c2.getName()});
+                        LOG.info("finished {} & {}", c1.getName(), c2.getName());
                     }
                 }
                 createTable();

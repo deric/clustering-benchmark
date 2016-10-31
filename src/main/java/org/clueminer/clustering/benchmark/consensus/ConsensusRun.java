@@ -23,8 +23,6 @@ import com.google.common.collect.Tables;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.clueminer.bagging.COMUSA;
 import org.clueminer.bagging.CoAssociationReduce;
 import org.clueminer.bagging.KMeansBagging;
@@ -44,6 +42,8 @@ import org.clueminer.dataset.api.Instance;
 import org.clueminer.dataset.benchmark.ResultsCollector;
 import org.clueminer.utils.Props;
 import org.openide.util.Exceptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -56,7 +56,7 @@ public class ConsensusRun implements Runnable {
     private String benchmarkFolder;
     //table for keeping results from experiments
     private Table<String, String, Double> table;
-    private static final Logger logger = Logger.getLogger(ConsensusRun.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ConsensusRun.class);
     private Dataset<? extends Instance> dataset;
 
     public ConsensusRun(ConsensusParams params, String benchmarkFolder, Dataset<? extends Instance> dataset) {
@@ -102,7 +102,7 @@ public class ConsensusRun implements Runnable {
             ensureFolder(folder);
 
             String csvRes = folder + File.separatorChar + algorithm + "_" + params.method + "_" + name + ".csv";
-            logger.log(Level.INFO, "dataset: {0} size: {1} num attr: {2}", new Object[]{name, dataset.size(), dataset.attributeCount()});
+            LOG.info("dataset: {} size: {} num attr: {}", name, dataset.size(), dataset.attributeCount());
             //ensureFolder(benchmarkFolder + File.separatorChar + name);
             Clustering c;
             Props props = algorithmSetup(params.method);

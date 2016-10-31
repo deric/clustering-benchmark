@@ -23,8 +23,6 @@ import com.google.common.collect.Tables;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.clueminer.clustering.api.ClusterEvaluation;
 import org.clueminer.clustering.api.factory.EvaluationFactory;
 import static org.clueminer.clustering.benchmark.Bench.safeName;
@@ -35,6 +33,8 @@ import org.clueminer.dataset.benchmark.ResultsCollector;
 import org.clueminer.evolution.mo.MoEvolution;
 import org.clueminer.evolution.utils.ConsoleDump;
 import org.openide.util.Exceptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -50,7 +50,7 @@ public class NsgaGenExp implements Runnable {
     private Table<String, String, Double> table;
     private ClusterEvaluation c1;
     private ClusterEvaluation c2;
-    private static final Logger logger = Logger.getLogger(NsgaGenExp.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(NsgaGenExp.class);
 
     public NsgaGenExp(NsgaGenParams params, String benchmarkFolder, ClusterEvaluation c1, ClusterEvaluation c2, HashMap<String, Map.Entry<Dataset<? extends Instance>, Integer>> availableDatasets) {
         this.params = params;
@@ -98,14 +98,14 @@ public class NsgaGenExp implements Runnable {
 
             String name;
             String folder;
-            logger.log(Level.INFO, "datasets size: {0}", datasets.size());
+            LOG.info("datasets size: {}", datasets.size());
             for (Map.Entry<String, Map.Entry<Dataset<? extends Instance>, Integer>> e : datasets.entrySet()) {
                 Dataset<? extends Instance> d = e.getValue().getKey();
                 name = safeName(d.getName());
                 folder = benchmarkFolder + File.separatorChar + name;
                 gw.mkdir(folder);
                 String csvRes = folder + File.separatorChar + "_" + name + ".csv";
-                logger.log(Level.INFO, "dataset: {0} size: {1} num attr: {2}", new Object[]{name, d.size(), d.attributeCount()});
+                LOG.info("dataset: {} size: {} num attr: {}", name, d.size(), d.attributeCount());
                 //ensureFolder(benchmarkFolder + File.separatorChar + name);
 
                 evolution.setDataset(d);
