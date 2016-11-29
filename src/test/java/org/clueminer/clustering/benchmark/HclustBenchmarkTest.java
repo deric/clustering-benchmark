@@ -16,9 +16,6 @@
  */
 package org.clueminer.clustering.benchmark;
 
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.clueminer.clustering.aggl.HC;
 import org.clueminer.clustering.aggl.HCLW;
 import org.clueminer.clustering.aggl.linkage.AverageLinkage;
@@ -30,7 +27,6 @@ import org.clueminer.dataset.api.Instance;
 import org.clueminer.fixtures.clustering.FakeDatasets;
 import org.clueminer.report.NanoBench;
 import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -44,14 +40,6 @@ public class HclustBenchmarkTest {
     public HclustBenchmarkTest() {
         //algorithms = new AgglomerativeClustering[]{new HAC(), new HACLW(), new HCL(), new HACLWMS()};
         algorithms = new AgglomerativeClustering[]{new HC(), new HCLW()};
-    }
-
-    @BeforeClass
-    public static void setUp() {
-        Logger logger = NanoBench.getLogger();
-        logger.setUseParentHandlers(false);
-        logger.setLevel(Level.INFO);
-        logger.addHandler(new ConsoleHandler());
     }
 
     @Test

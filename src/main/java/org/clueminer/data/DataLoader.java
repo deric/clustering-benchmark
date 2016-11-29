@@ -33,7 +33,7 @@ import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
 import org.clueminer.dataset.impl.ArrayDataset;
 import org.clueminer.exception.ParserError;
-import org.clueminer.io.ARFFHandler;
+import org.clueminer.io.arff.ARFFHandler;
 import org.openide.util.Exceptions;
 
 /**
