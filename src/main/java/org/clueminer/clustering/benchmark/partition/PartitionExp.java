@@ -17,7 +17,6 @@
 package org.clueminer.clustering.benchmark.partition;
 
 import com.beust.jcommander.JCommander;
-import edu.umn.metis.HMetisNoFF;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.clueminer.clustering.benchmark.Bench;
@@ -53,7 +52,6 @@ public class PartitionExp extends Bench {
         System.out.println("=== starting " + name);
 
         Partitioning[] algorithms = new Partitioning[]{
-            new HMetisNoFF(),
             new RecursiveBisection()
         };
 
