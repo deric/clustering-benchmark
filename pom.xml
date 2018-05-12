@@ -155,11 +155,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>edu.umn</groupId>
-            <artifactId>metis</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>partitioning-impl</artifactId>
             <version>${project.version}</version>
