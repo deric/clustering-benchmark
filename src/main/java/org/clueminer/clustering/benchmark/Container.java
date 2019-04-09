@@ -16,7 +16,6 @@
  */
 package org.clueminer.clustering.benchmark;
 
-import org.clueminer.clustering.ClusteringExecutorCached;
 import org.clueminer.clustering.TreeDiff;
 import org.clueminer.clustering.api.AgglomerativeClustering;
 import org.clueminer.clustering.api.AlgParams;
@@ -26,6 +25,7 @@ import org.clueminer.clustering.api.ClusteringType;
 import org.clueminer.clustering.api.HierarchicalResult;
 import org.clueminer.dataset.api.Dataset;
 import org.clueminer.dataset.api.Instance;
+import org.clueminer.exec.ClusteringExecutorCached;
 import org.clueminer.utils.Props;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
